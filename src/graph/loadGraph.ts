@@ -26,36 +26,47 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph, Fill, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke } from 'yfiles'
+import { DefaultGraph, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
-import applyHierarchicLayout from './layouts/hierachic'
+import getColorForCategory from './helper/getColorForCategory'
+import applyOrganicLayout from './layouts/organic'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
 
+const gameNodeStyle = new ShapeNodeStyle({
+  shape: ShapeNodeShape.ELLIPSE,
+  stroke: Stroke.BLACK,
+  fill: 'rgba(217,20,20,0.5)'
+})
+
 export default async function loadGraph() {
   const graph = new DefaultGraph()
-  const shape = new Rect(100, 100, 75, 50)
-  const style = new ShapeNodeStyle({
-    shape: ShapeNodeShape.RECTANGLE,
-    stroke: Stroke.BLACK,
-    fill: Fill.ORANGE
-  })
 
-  const nodes = createNodesWithShapeAndStyle(graph, top40, shape, style)
+  const nodes = createNodesWithShapeAndStyle(graph, top40)
   createLikedEdges(graph, nodes)
-  applyHierarchicLayout(graph)//applyOrganicLayout(graph)
-
+  applyOrganicLayout(graph)
   return graph
 }
 
-function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[], shape: Rect, style?: ShapeNodeStyle): Map<number, INode> {
+function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<number, INode> {
+  const shape = new Rect(0, 0, 500, 100)
   const nodeMap = new Map<number, INode>()
   for (const game of games) {
-    const node = graph.createNode(shape, style, game)
-    nodeMap.set(game.id, node)
+    const gameNode = graph.createGroupNode(null, shape, gameNodeStyle, game)
+    graph.addLabel(gameNode, game.title)
+    for (const category of game.types.categories) {
+      const categoryNodeStyle = new ShapeNodeStyle({
+        shape: ShapeNodeShape.PILL,
+        stroke: Stroke.BLACK,
+        fill: getColorForCategory(category.id)
+      })
+      const catNode = graph.createNode(gameNode, shape, categoryNodeStyle)
+      graph.addLabel(catNode, category.name)
+    }
+    nodeMap.set(game.id, gameNode)
   }
   return nodeMap
 }
@@ -63,7 +74,6 @@ function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[], shape:
 function createLikedEdges(graph: DefaultGraph, nodes: Map<number, INode>) {
   for (const [, node] of nodes) {
     const game = node.tag as Game
-    graph.addLabel(node, game.title)
     for (const liked_id of game.recommendations.fans_liked) {
       const likedNode = nodes.get(liked_id)
       if (!likedNode) continue
