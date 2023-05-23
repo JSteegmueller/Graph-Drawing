@@ -1,0 +1,23 @@
+{
+  "comment": "academic",
+  "company": "Universität Tübingen, Arbeitsbereich Algorithmik",
+  "contact": "Michael Bekos",
+  "date": "11/15/2022",
+  "distribution": false,
+  "domains": [
+    "*"
+  ],
+  "email": "algoyguy@informatik.uni-tuebingen.de",
+  "fileSystemAllowed": true,
+  "licensefileversion": "1.1",
+  "localhost": true,
+  "oobAllowed": true,
+  "package": "complete",
+  "product": "yFiles for HTML",
+  "sitename": "Universität Tübingen",
+  "subscription": "12/31/2023",
+  "type": "site",
+  "version": "2.5",
+  "watermark": "yFiles HTML Development License",
+  "key": "ca13bb3a47f42719a72f0b564f809ed237ef5d04"
+}
