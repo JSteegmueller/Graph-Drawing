@@ -3,7 +3,9 @@ import { DefaultGraph, OrganicLayout, OrganicLayoutClusteringPolicy } from 'yfil
 export default function applyOrganicLayout(graph: DefaultGraph) {
   const layout = new OrganicLayout()
   layout.considerNodeSizes = true
-  layout.minimumNodeDistance = 50
+  layout.minimumNodeDistance = 200
   layout.clusteringPolicy = OrganicLayoutClusteringPolicy.EDGE_BETWEENNESS
+  layout.deterministic = true
+  layout.smartComponentLayout = true
   graph.applyLayout(layout)
 }
