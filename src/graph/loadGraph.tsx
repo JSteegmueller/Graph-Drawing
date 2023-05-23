@@ -26,36 +26,59 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke } from 'yfiles'
+import {
+  DefaultGraph,
+  DefaultLabelStyle,
+  EdgeRouter,
+  HorizontalTextAlignment,
+  INode,
+  InteriorStretchLabelModel,
+  Rect,
+  ShapeNodeShape,
+  ShapeNodeStyle,
+  Stroke,
+  TextWrapping,
+  VerticalTextAlignment
+} from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
 import getColorForCategory from './helper/getColorForCategory'
-import applyOrganicLayout from './layouts/organic'
+import getOrganicLayout from './layouts/organic'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
 
-const gameNodeStyle = new ShapeNodeStyle({
-  shape: ShapeNodeShape.ELLIPSE,
-  stroke: Stroke.BLACK,
-  fill: 'rgba(217,20,20,0.5)'
-})
 
 export default async function loadGraph() {
   const graph = new DefaultGraph()
-
   const nodes = createNodesWithShapeAndStyle(graph, top40)
   createLikedEdges(graph, nodes)
-  applyOrganicLayout(graph)
+
+  const edgeRouter = new EdgeRouter()
+  edgeRouter.coreLayout = getOrganicLayout()
+  graph.applyLayout(getOrganicLayout())
+
+  graph.nodeDefaults.labels.style = new DefaultLabelStyle({
+    wrapping: TextWrapping.CHARACTER_ELLIPSIS,
+    verticalTextAlignment: VerticalTextAlignment.CENTER,
+    horizontalTextAlignment: HorizontalTextAlignment.CENTER
+  })
+  graph.nodeDefaults.labels.layoutParameter = InteriorStretchLabelModel.CENTER
   return graph
 }
 
 function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<number, INode> {
-  const shape = new Rect(0, 0, 500, 100)
+  const gameShape = new Rect(0, 0, 100, 100)
+  const catShape = new Rect(0, 0, 100, 100)
   const nodeMap = new Map<number, INode>()
   for (const game of games) {
-    const gameNode = graph.createGroupNode(null, shape, gameNodeStyle, game)
+    const gameNodeStyle = new ShapeNodeStyle({
+      shape: ShapeNodeShape.RECTANGLE,
+      stroke: Stroke.BLACK,
+      fill: `rgb(0,255,22, ${(games.length + 1 - game.rank) / games.length})`
+    })
+    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle)
     graph.addLabel(gameNode, game.title)
     for (const category of game.types.categories) {
       const categoryNodeStyle = new ShapeNodeStyle({
@@ -63,7 +86,7 @@ function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<n
         stroke: Stroke.BLACK,
         fill: getColorForCategory(category.id)
       })
-      const catNode = graph.createNode(gameNode, shape, categoryNodeStyle)
+      const catNode = graph.createNode(gameNode, catShape, categoryNodeStyle, game)
       graph.addLabel(catNode, category.name)
     }
     nodeMap.set(game.id, gameNode)
