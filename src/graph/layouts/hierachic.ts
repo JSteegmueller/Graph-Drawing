@@ -1,6 +1,7 @@
-import { DefaultGraph, HierarchicLayout } from 'yfiles'
+import { ComponentArrangementPolicy, HierarchicLayout, ILayoutAlgorithm } from 'yfiles'
 
-export default function applyHierarchicLayout(graph: DefaultGraph) {
+export default function getHierarchicLayout(): ILayoutAlgorithm {
   const layout = new HierarchicLayout()
-  graph.applyLayout(layout)
+  layout.componentArrangementPolicy = ComponentArrangementPolicy.COMPACT
+  return layout
 }
