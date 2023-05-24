@@ -42,10 +42,12 @@ export default async function loadGraph() {
   const nodes = createNodesWithShapeAndStyle(graph, top40)
   createLikedEdges(graph, nodes)
 
-  const edgeRouter = new EdgeRouter()
-  edgeRouter.coreLayout = getOrganicLayout()
-  graph.applyLayout(edgeRouter)
+  const bundler = new EdgeBundlingStage()
 
+  bundler.coreLayout = getOrganicLayout()
+  bundler.edgeBundling.bundlingQuality = 1
+  bundler.edgeBundling.bundlingStrength = 0.8
+  graph.applyLayout(bundler)
   return graph
 }
 
