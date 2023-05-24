@@ -26,20 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {
-  DefaultGraph,
-  DefaultLabelStyle,
-  EdgeRouter,
-  HorizontalTextAlignment,
-  INode,
-  InteriorStretchLabelModel,
-  Rect,
-  ShapeNodeShape,
-  ShapeNodeStyle,
-  Stroke,
-  TextWrapping,
-  VerticalTextAlignment
-} from 'yfiles'
+import { DefaultGraph, EdgeRouter, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
@@ -57,14 +44,8 @@ export default async function loadGraph() {
 
   const edgeRouter = new EdgeRouter()
   edgeRouter.coreLayout = getOrganicLayout()
-  graph.applyLayout(getOrganicLayout())
+  graph.applyLayout(edgeRouter)
 
-  graph.nodeDefaults.labels.style = new DefaultLabelStyle({
-    wrapping: TextWrapping.CHARACTER_ELLIPSIS,
-    verticalTextAlignment: VerticalTextAlignment.CENTER,
-    horizontalTextAlignment: HorizontalTextAlignment.CENTER
-  })
-  graph.nodeDefaults.labels.layoutParameter = InteriorStretchLabelModel.CENTER
   return graph
 }
 
@@ -78,7 +59,7 @@ function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<n
       stroke: Stroke.BLACK,
       fill: `rgb(0,255,22, ${(games.length + 1 - game.rank) / games.length})`
     })
-    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle)
+    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle, game)
     graph.addLabel(gameNode, game.title)
     for (const category of game.types.categories) {
       const categoryNodeStyle = new ShapeNodeStyle({
