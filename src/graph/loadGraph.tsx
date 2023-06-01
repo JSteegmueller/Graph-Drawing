@@ -26,7 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph, EdgeRouter, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke } from 'yfiles'
+import { DefaultGraph, DefaultLabelStyle, EdgeRouter, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke, FreeNodeLabelModel, Font, FontWeight, VerticalTextAlignment, HorizontalTextAlignment, TextWrapping, LabelShape, BorderLine, FontStyle, InteriorStretchLabelModel, InteriorStretchLabelModelPosition} from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
@@ -49,11 +49,20 @@ export default async function loadGraph() {
   return graph
 }
 
+function createNodeLabelParameter(layoutRatio: any, layoutOffset: any) {
+  return FreeNodeLabelModel.INSTANCE.createParameter({
+    layoutRatio, // [0,0] is upper left corner of node, [1, 1] lower right, [0.5, 0.5] middle
+    layoutOffset, // offset after the ratios been determined
+    labelRatio: [0.5, 0.5] // [0,0] is upper left corner of label, [1, 1] lower right, [0.5, 0.5] middle
+  })
+}
+
 function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<number, INode> {
   const gameShape = new Rect(0, 0, 100, 100)
   const catShape = new Rect(0, 0, 100, 100)
   const nodeMap = new Map<number, INode>()
-  for (const game of games) {
+  // VERSION FROM JANIK
+  /*for (const game of games) {
     const gameNodeStyle = new ShapeNodeStyle({
       shape: ShapeNodeShape.RECTANGLE,
       stroke: Stroke.BLACK,
@@ -70,6 +79,30 @@ function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<n
       const catNode = graph.createNode(gameNode, catShape, categoryNodeStyle, game)
       graph.addLabel(catNode, category.name)
     }
+    nodeMap.set(game.id, gameNode)
+  } */
+  for (const game of games) {
+    // 
+    const gameNodeStyle = new ShapeNodeStyle({
+      shape: ShapeNodeShape.ROUND_RECTANGLE, // SHAPE OF NODES
+      stroke: Stroke.BEIGE, // COLOR OF STROKE
+      fill: `rgb(19,15,135, ${(games.length + 1 - game.rank) / games.length})` // FILL COLOR WITH DESENDING RANK
+    })
+
+    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle, game)
+     // use a label model that stretches the label over the full node layout, with small insets
+    const centerLabelModel = new InteriorStretchLabelModel({ insets: 10 }) // STRETCHES LABEL INTO SPACE WITH *insets* PADDING
+    const centerParameter = centerLabelModel.createParameter(InteriorStretchLabelModelPosition.CENTER)
+
+    const nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
+      wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
+      font: new Font('Tahoma', 14, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
+      textFill: 'rgb(0, 0, 0)', // TEXT-COLOR
+      verticalTextAlignment: VerticalTextAlignment.CENTER, // VERTICAL TEXT ALIGNMENT
+      horizontalTextAlignment: HorizontalTextAlignment.CENTER, // HORIZONTAL TEXT ALIGNMENT
+      clipText: false // CLIPS TEXT IF IT DOESN'T FIT
+    })
+    graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
     nodeMap.set(game.id, gameNode)
   }
   return nodeMap
