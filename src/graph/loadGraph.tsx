@@ -26,7 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph, DefaultLabelStyle, EdgeRouter, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke, FreeNodeLabelModel, Font, FontWeight, VerticalTextAlignment, HorizontalTextAlignment, TextWrapping, LabelShape, BorderLine, FontStyle, InteriorStretchLabelModel, InteriorStretchLabelModelPosition, EdgeDefaults, IEdgeDefaults, IEdgeStyle, EdgeStyleBase, IEdge, IRenderContext, Visual, SvgVisual, PolylineEdgeStyle, Arrow} from 'yfiles'
+import { EdgeBundlingStage,DefaultGraph, DefaultLabelStyle, EdgeRouter, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke, FreeNodeLabelModel, Font, FontWeight, VerticalTextAlignment, HorizontalTextAlignment, TextWrapping, LabelShape, BorderLine, FontStyle, InteriorStretchLabelModel, InteriorStretchLabelModelPosition, EdgeDefaults, IEdgeDefaults, IEdgeStyle, EdgeStyleBase, IEdge, IRenderContext, Visual, SvgVisual, PolylineEdgeStyle, Arrow} from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
