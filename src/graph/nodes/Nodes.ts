@@ -13,9 +13,11 @@ import {
   ShapeNodeStyle,
   Stroke,
   TextWrapping,
-  VerticalTextAlignment
+  VerticalTextAlignment,
+  StringTemplateNodeStyle
 } from 'yfiles'
 import { Game } from '../../types/Game'
+import { ReactComponent as nodeStyle } from './node-style.svg';
 
 export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INode> {
   const gameShape = new Rect(0, 0, 100, 100)
@@ -28,7 +30,14 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       fill: `rgb(19,15,135, ${(games.length + 1 - game.rank) / games.length})` // FILL COLOR WITH DESENDING RANK
     })
 
-    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle, game)
+    const amountOfCategories = game.types.categories.length
+
+    const nodeStyle = `<g>
+    <circle cx="50" cy="50" r="50" fill="#e9e9ca" />
+    <text x="50" y="58" font-size="16" stroke="#000">${game.title}</text></g>`
+    const gameNodeStyleSVG = new StringTemplateNodeStyle(nodeStyle)
+
+    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyleSVG, game)
     // use a label model that stretches the label over the full node layout, with small insets
     const centerLabelModel = new InteriorStretchLabelModel({ insets: 10 }) // STRETCHES LABEL INTO SPACE WITH *insets* PADDING
     const centerParameter = centerLabelModel.createParameter(InteriorStretchLabelModelPosition.CENTER)
@@ -41,7 +50,7 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       horizontalTextAlignment: HorizontalTextAlignment.CENTER, // HORIZONTAL TEXT ALIGNMENT
       clipText: false // CLIPS TEXT IF IT DOESN'T FIT
     })
-    graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
+    //graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
     nodeMap.set(game.id, gameNode)
   }
   return nodeMap
