@@ -26,12 +26,32 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { EdgeBundlingStage,DefaultGraph, DefaultLabelStyle, EdgeRouter, INode, Rect, ShapeNodeShape, ShapeNodeStyle, Stroke, FreeNodeLabelModel, Font, FontWeight, VerticalTextAlignment, HorizontalTextAlignment, TextWrapping, LabelShape, BorderLine, FontStyle, InteriorStretchLabelModel, InteriorStretchLabelModelPosition, EdgeDefaults, IEdgeDefaults, IEdgeStyle, EdgeStyleBase, IEdge, IRenderContext, Visual, SvgVisual, PolylineEdgeStyle, Arrow} from 'yfiles'
+import {
+  Arrow,
+  DefaultGraph,
+  DefaultLabelStyle,
+  Font,
+  FontStyle,
+  FontWeight,
+  FreeNodeLabelModel,
+  HorizontalTextAlignment,
+  INode,
+  InteriorStretchLabelModel,
+  InteriorStretchLabelModelPosition,
+  PolylineEdgeStyle,
+  Rect,
+  ShapeNodeShape,
+  ShapeNodeStyle,
+  Stroke,
+  TextWrapping,
+  VerticalTextAlignment
+} from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
-import getColorForCategory from './helper/getColorForCategory'
-import getOrganicLayout from './layouts/organic'
+import { applyEdgeBundling } from './edges/EdgeBundling'
+import { applyClustering, ClusteringAlgo } from './nodes/Clustering'
+import { applyLayout, Layout } from './layouts/Layout'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -42,12 +62,9 @@ export default async function loadGraph() {
   const nodes = createNodesWithShapeAndStyle(graph, top40)
   createLikedEdges(graph, nodes)
 
-  const bundler = new EdgeBundlingStage()
-
-  bundler.coreLayout = getOrganicLayout()
-  bundler.edgeBundling.bundlingQuality = 1
-  bundler.edgeBundling.bundlingStrength = 0.8
-  graph.applyLayout(bundler)
+  applyClustering(graph, ClusteringAlgo.EdgeBetweenness)
+  applyLayout(graph, Layout.OrganicLayout)
+  applyEdgeBundling(graph)
   return graph
 }
 
@@ -92,7 +109,7 @@ function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<n
     })
 
     const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle, game)
-     // use a label model that stretches the label over the full node layout, with small insets
+    // use a label model that stretches the label over the full node layout, with small insets
     const centerLabelModel = new InteriorStretchLabelModel({ insets: 10 }) // STRETCHES LABEL INTO SPACE WITH *insets* PADDING
     const centerParameter = centerLabelModel.createParameter(InteriorStretchLabelModelPosition.CENTER)
 
@@ -110,20 +127,17 @@ function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<n
   return nodeMap
 }
 
-function createLikedEdges(graph: DefaultGraph, nodes: Map<number, INode>)
-{
-  for (const [, node] of nodes)
-  {
+function createLikedEdges(graph: DefaultGraph, nodes: Map<number, INode>) {
+  for (const [, node] of nodes) {
     const game = node.tag as Game
-    for (const liked_id of game.recommendations.fans_liked)
-    {
+    for (const liked_id of game.recommendations.fans_liked) {
       const likedNode = nodes.get(liked_id)
       if (!likedNode) continue
       graph.createEdge(node, likedNode, new PolylineEdgeStyle(
-      {
-        stroke: '3px solid blue',
-        targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
-      }))
+        {
+          stroke: '3px solid blue',
+          targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
+        }))
     }
   }
 }
