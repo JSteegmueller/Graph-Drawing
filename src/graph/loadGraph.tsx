@@ -26,32 +26,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import {
-  Arrow,
-  DefaultGraph,
-  DefaultLabelStyle,
-  Font,
-  FontStyle,
-  FontWeight,
-  FreeNodeLabelModel,
-  HorizontalTextAlignment,
-  INode,
-  InteriorStretchLabelModel,
-  InteriorStretchLabelModelPosition,
-  PolylineEdgeStyle,
-  Rect,
-  ShapeNodeShape,
-  ShapeNodeStyle,
-  Stroke,
-  TextWrapping,
-  VerticalTextAlignment
-} from 'yfiles'
+import { DefaultGraph } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
 import { applyEdgeBundling } from './edges/EdgeBundling'
 import { applyClustering, ClusteringAlgo } from './nodes/Clustering'
 import { applyLayout, Layout } from './layouts/Layout'
+import { createNodes } from './nodes/Nodes'
+import { createEdges } from './edges/Edges'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -59,105 +42,11 @@ const top100: Game[] = uTop100
 
 export default async function loadGraph() {
   const graph = new DefaultGraph()
-  const nodes = createNodesWithShapeAndStyle(graph, top40)
-  createLikedEdges(graph, nodes)
 
+  const nodes = createNodes(graph, top40)
+  createEdges(graph, nodes)
   applyClustering(graph, ClusteringAlgo.EdgeBetweenness)
   applyLayout(graph, Layout.OrganicLayout)
   applyEdgeBundling(graph)
   return graph
 }
-
-function createNodeLabelParameter(layoutRatio: any, layoutOffset: any) {
-  return FreeNodeLabelModel.INSTANCE.createParameter({
-    layoutRatio, // [0,0] is upper left corner of node, [1, 1] lower right, [0.5, 0.5] middle
-    layoutOffset, // offset after the ratios been determined
-    labelRatio: [0.5, 0.5] // [0,0] is upper left corner of label, [1, 1] lower right, [0.5, 0.5] middle
-  })
-}
-
-function createNodesWithShapeAndStyle(graph: DefaultGraph, games: Game[]): Map<number, INode> {
-  const gameShape = new Rect(0, 0, 100, 100)
-  const catShape = new Rect(0, 0, 100, 100)
-  const nodeMap = new Map<number, INode>()
-  // VERSION FROM JANIK
-  /*for (const game of games) {
-    const gameNodeStyle = new ShapeNodeStyle({
-      shape: ShapeNodeShape.RECTANGLE,
-      stroke: Stroke.BLACK,
-      fill: `rgb(0,255,22, ${(games.length + 1 - game.rank) / games.length})`
-    })
-    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle, game)
-    graph.addLabel(gameNode, game.title)
-    for (const category of game.types.categories) {
-      const categoryNodeStyle = new ShapeNodeStyle({
-        shape: ShapeNodeShape.PILL,
-        stroke: Stroke.BLACK,
-        fill: getColorForCategory(category.id)
-      })
-      const catNode = graph.createNode(gameNode, catShape, categoryNodeStyle, game)
-      graph.addLabel(catNode, category.name)
-    }
-    nodeMap.set(game.id, gameNode)
-  } */
-  for (const game of games) {
-    // 
-    const gameNodeStyle = new ShapeNodeStyle({
-      shape: ShapeNodeShape.ROUND_RECTANGLE, // SHAPE OF NODES
-      stroke: Stroke.BEIGE, // COLOR OF STROKE
-      fill: `rgb(19,15,135, ${(games.length + 1 - game.rank) / games.length})` // FILL COLOR WITH DESENDING RANK
-    })
-
-    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyle, game)
-    // use a label model that stretches the label over the full node layout, with small insets
-    const centerLabelModel = new InteriorStretchLabelModel({ insets: 10 }) // STRETCHES LABEL INTO SPACE WITH *insets* PADDING
-    const centerParameter = centerLabelModel.createParameter(InteriorStretchLabelModelPosition.CENTER)
-
-    const nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
-      wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
-      font: new Font('Tahoma', 14, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
-      textFill: 'rgb(0, 0, 0)', // TEXT-COLOR
-      verticalTextAlignment: VerticalTextAlignment.CENTER, // VERTICAL TEXT ALIGNMENT
-      horizontalTextAlignment: HorizontalTextAlignment.CENTER, // HORIZONTAL TEXT ALIGNMENT
-      clipText: false // CLIPS TEXT IF IT DOESN'T FIT
-    })
-    graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
-    nodeMap.set(game.id, gameNode)
-  }
-  return nodeMap
-}
-
-function createLikedEdges(graph: DefaultGraph, nodes: Map<number, INode>) {
-  for (const [, node] of nodes) {
-    const game = node.tag as Game
-    for (const liked_id of game.recommendations.fans_liked) {
-      const likedNode = nodes.get(liked_id)
-      if (!likedNode) continue
-      graph.createEdge(node, likedNode, new PolylineEdgeStyle(
-        {
-          stroke: '3px solid blue',
-          targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
-        }))
-    }
-  }
-}
-
-// CustomEdgeStyle class, might need if we want to do more with edges.
-/*class CustomEdgeStyle extends EdgeStyleBase
-{
-  private createPathData(edge: IEdge): string
-  {
-    const points = IEdge.getPathPoints(edge).toArray()
-    return 'M ' + points.map(point => `${point.x} ${point.y}`).join(' L ')
-  }
-
-  protected createVisual(context: IRenderContext, edge: IEdge): Visual | null
-  {
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-    path.setAttribute('d', this.createPathData(edge))
-    path.setAttribute('fill', 'none')
-    path.setAttribute('stroke', 'black')
-    path.setAttribute('stroke-width', '1')
-    return new SvgVisual(path)
-  }  
-} */
