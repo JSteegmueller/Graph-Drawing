@@ -1,0 +1,44 @@
+<svg>
+  <circle cx='50' cy='50' r='50' fill='#e9e9ca' />
+  <text x="50" y="25" style="font-size:9" text-anchor="middle">
+    <tspan >TILE</tspan>
+    <tspan x="50" y="35">(Sec part if nec)</tspan>
+    <tspan x="50" y="55">Time: TIME</tspan>
+    <tspan x="50" y="65">players or smth</tspan>
+  </text>
+</svg>
+
+<svg>
+    <circle cx="55" cy="50" r="50" fill="#e9e9ca" />
+    <text x="55" y="25" style="font-size:10" text-anchor="middle">
+      <tspan data-content='{Binding title}'></tspan>
+      <tspan x="55" y="35" ></tspan>
+    </text>
+    
+    <text x="55" y="45" style="font-size:8" text-anchor="middle">Players:</text>    
+    <text x="45" y="55" style="font-size:8" text-anchor="end" data-content='{Binding minplayers}'></text>
+    <text x="55" y="55" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="55" style="font-size:8" text-anchor="start" data-content='{Binding maxplayers}'></text>
+
+    <text x="55" y="75" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
+    <text x="45" y="85" style="font-size:8" text-anchor="end" data-content='{Binding minplaytime}'></text>
+    <text x="55" y="85" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="85" style="font-size:8" text-anchor="start" data-content='{Binding maxplaytime}'></text>
+</svg>
+
+
+<!-- <svg > -->
+    <!-- <circle cx='50' cy='50' r='50' fill='#e9e9ca' /> -->
+    <!-- <text transform="translate(0 25)" font-size="8px">Testiiiii iiiiiiiiiii iiiiiiiiiing</text> -->
+    <!-- <code> -->
+   <!-- <text x="800" y="800" style="font-size: 20px;"> -->
+      <!-- <tspan x="0" y="0">inkl. Zeilenumbruch</tspan> -->
+      <!-- <tspan x="0" y="400">inkl. Zeilenumbruch</tspan> -->
+   <!-- </text> -->
+<!-- </code> -->
+<!-- </svg> -->
+
+
+<!-- font-size="{TemplateBinding width, Converter=fontSize} -->
+
+

@@ -43,10 +43,31 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       `<circle cx="87" cy="10" r="10"`,
       `<circle cx="101" cy="30" r="10"`
     ]
+    
+    // let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
+    // <text x="55" y="58" font-size="16" text-anchor="middle" stroke="#000" data-content='{Binding title}'></text>`
+    // let circles = ``
 
-    let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
-    <text x="55" y="58" font-size="16" text-anchor="middle" stroke="#000" data-content='{Binding title}'></text>`
+    let nodeStyle = `
+    <circle cx="55" cy="50" r="50" fill="#e9e9ca" />
+    <text x="55" y="25" style="font-size:10" text-anchor="middle">
+      <tspan data-content='{Binding title}'></tspan>
+      <tspan x="55" y="35" ></tspan>
+    </text>
+    
+    <text x="55" y="45" style="font-size:8" text-anchor="middle">Players:</text>    
+    <text x="45" y="55" style="font-size:8" text-anchor="end" data-content='{Binding minplayers}'></text>
+    <text x="55" y="55" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="55" style="font-size:8" text-anchor="start" data-content='{Binding maxplayers}'></text>
+
+    <text x="55" y="75" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
+    <text x="45" y="85" style="font-size:8" text-anchor="end" data-content='{Binding minplaytime}'></text>
+    <text x="55" y="85" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="85" style="font-size:8" text-anchor="start" data-content='{Binding maxplaytime}'></text>
+    `
+
     let circles = ``
+
 
     for (let c = 0; c < amountOfCategories; c++){
       let colorOfCategory = colorToString(getColorForCategory(game.types.categories[c].id))
