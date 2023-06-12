@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Top X Boardgames</title>
+
+    <link rel="stylesheet" href="../resources/style/demo.css" />
+
+    <script src="../resources/filesystem-warning.js"></script>
+  </head>
+  <body class="demo-has-left">
+    <aside class="demo-sidebar demo-left">
+      <div class="demo-sidebar-header">
+        <a href="https://www.yworks.com/products/yfiles" class="demo-left-logo"></a>
+      </div>
+      <div class="demo-sidebar-content">
+        <div class="tutorial-step">Top X Boardgames</div>
+
+        <h1>Some info blabla</h1>
+
+        <p>
+          Here shit could be documented (see index.html).
+        </p>
+      </div>
+    </aside>
+
+    <div class="demo-content">
+      <header class="demo-header"></header>
+      <div class="demo-toolbar">
+        <button data-command="ZoomIn" title="Zoom In" class="demo-icon-yIconZoomIn"></button>
+        <button
+          data-command="ZoomOriginal"
+          title="Zoom to original size"
+          class="demo-icon-yIconZoomOriginal"
+        ></button>
+        <button data-command="ZoomOut" title="Zoom Out" class="demo-icon-yIconZoomOut"></button>
+        <button
+          data-command="FitContent"
+          title="Fit Content"
+          class="demo-icon-yIconZoomFit"
+        ></button>
+        <span class="demo-separator"></span>
+        <button data-command="Cut" title="Cut" class="demo-icon-yIconCut"></button>
+        <button data-command="Copy" title="Copy" class="demo-icon-yIconCopy"></button>
+        <button data-command="Paste" title="Paste" class="demo-icon-yIconPaste"></button>
+        <span class="demo-separator"></span>
+        <button
+          id="layout-btn"
+          data-command="Layout"
+          title="Layout"
+          class="demo-icon-yIconLayout labeled"
+        >
+          Layout
+        </button>
+      </div>
+
+      <div class="demo-content-dynamic">
+        <div id="graphComponent"></div>
+      </div>
+    </div>
+
+    <script type="module" crossorigin="anonymous" src="Application.js"></script>
+  </body>
+</html>
