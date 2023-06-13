@@ -26,7 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph } from 'yfiles'
+import { DefaultGraph, EdgeRouter } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
@@ -35,7 +35,7 @@ import { createNodes } from './nodes/Nodes'
 import { createEdges } from './edges/Edges'
 import { applyClustering, ClusteringAlgo } from './nodes/Clustering'
 import { findCliques } from './nodes/Clique'
-import { applyEdgeBundling } from './edges/EdgeBundling'
+import { mergeBidirectional } from './edges/Bidirectional'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -47,8 +47,12 @@ export default async function loadGraph() {
   const nodes = createNodes(graph, top40)
   createEdges(graph, nodes)
   findCliques(graph)
+
+  mergeBidirectional(graph)
   applyClustering(graph, ClusteringAlgo.None)
   applyLayout(graph, Layout.OrganicLayout)
-  applyEdgeBundling(graph)
+  const router = new EdgeRouter()
+  router.polylineRouting = true
+  graph.applyLayout(router)
   return graph
 }
