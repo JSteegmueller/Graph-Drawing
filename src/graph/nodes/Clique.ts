@@ -44,6 +44,7 @@ function rerouteEdges(graph: DefaultGraph, cliqueNodeMap: Map<Number, INode>) {
       replaceEdge(edge, cliqueNodeMap.get(sourceClique), edge.targetNode, graph)
     }
   })
+  removeDuplicateEdges(graph)
 }
 
 function replaceEdge(edge: IEdge, sourceNode: INode | undefined | null, targetNode: INode | undefined | null, graph: DefaultGraph) {
@@ -54,4 +55,25 @@ function replaceEdge(edge: IEdge, sourceNode: INode | undefined | null, targetNo
       stroke: '3px solid blue',
       targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
     }))
+}
+
+function removeDuplicateEdges(graph: DefaultGraph) {
+  const edgeRemoveList = new Set<IEdge>()
+  const edges = graph.edges.toList()
+  for (let i = 0; i < edges.size - 1; i++) {
+    const edge1 = edges.get(i)
+    for (let j = i + 1; j < edges.size; j++) {
+      const edge2 = edges.get(j)
+      if (edge1.sourceNode === edge2.sourceNode &&
+        edge1.targetNode === edge2.targetNode) {
+        if (edge1.targetNode && edge1.sourceNode) {
+          edgeRemoveList.add(edge2)
+        }
+      }
+    }
+  }
+
+  for (const edge of edgeRemoveList) {
+    graph.remove(edge)
+  }
 }
