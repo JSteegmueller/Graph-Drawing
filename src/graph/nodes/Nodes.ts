@@ -42,7 +42,8 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       `<circle cx="40" cy="0" r="10"`,
       `<circle cx="65" cy="0" r="10"`,
       `<circle cx="87" cy="10" r="10"`,
-      `<circle cx="101" cy="30" r="10"`
+      `<circle cx="101" cy="30" r="10"`,
+      `<circle cx="108" cy="50" r="10"`
     ]
 
     // let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
