@@ -29,6 +29,7 @@ function colorToString(color: Color) {
 
 export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INode> {
   const gameShape = new Rect(0, 0, 100, 100)
+  const titleShape = new Rect(0, 0, 80, 80)
   const nodeMap = new Map<number, INode>()
 
   for (const game of games) {
@@ -44,8 +45,28 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       `<circle cx="101" cy="30" r="10"`
     ]
 
-    let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
-    <text x="55" y="58" font-size="16" text-anchor="middle" stroke="#000" data-content='{Binding title}'></text>`
+    // let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
+    // <text x="55" y="58" font-size="16" text-anchor="middle" stroke="#000" data-content='{Binding title}'></text>`
+    // let circles = ``
+
+    let nodeStyle = `
+    <circle cx="55" cy="50" r="50" fill="#e9e9ca" />
+    <text x="55" y="25" style="font-size:10" text-anchor="middle">
+    <!-- <tspan data-content='{Binding title}'></tspan> -->
+      <tspan x="55" y="35" ></tspan>
+    </text>
+    
+    <text x="55" y="63" style="font-size:8" text-anchor="middle">Players:</text>    
+    <text x="45" y="73" style="font-size:8" text-anchor="end" data-content='{Binding minplayers}'></text>
+    <text x="55" y="73" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="73" style="font-size:8" text-anchor="start" data-content='{Binding maxplayers}'></text>
+
+    <text x="55" y="84" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
+    <text x="45" y="94" style="font-size:8" text-anchor="end" data-content='{Binding minplaytime}'></text>
+    <text x="55" y="94" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="94" style="font-size:8" text-anchor="start" data-content='{Binding maxplaytime}'></text>
+    `
+
     let circles = ``
 
     for (let c = 0; c < amountOfCategories; c++){
@@ -59,14 +80,33 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
 
     const nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
       wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
-      font: new Font('Tahoma', 14, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
+      font: new Font('Tahoma', 8, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
       textFill: 'rgb(0, 0, 0)', // TEXT-COLOR
-      verticalTextAlignment: VerticalTextAlignment.CENTER, // VERTICAL TEXT ALIGNMENT
+      verticalTextAlignment: VerticalTextAlignment.TOP, // VERTICAL TEXT ALIGNMENT
+      // verticalTextAlignment: VerticalTextAlignment.CENTER, // VERTICAL TEXT ALIGNMENT
       horizontalTextAlignment: HorizontalTextAlignment.CENTER, // HORIZONTAL TEXT ALIGNMENT
-      clipText: false // CLIPS TEXT IF IT DOESN'T FIT
+      clipText: false, // CLIPS TEXT IF IT DOESN'T FIT
+
+      // textWrappingShape: 'ellipse',
+      // textWrappingPadding: 1,
+      // insets: [0, 0, 0, 10] 
+      // insets stehen als left, top, right, bot in der doku, ist aber glaub eigentlich TOP, RIGHT, BOT, LEFT
+      // VerticalTextAlignment.TOP 
+      // insets: [10, 0, 0, 10] 
+      insets: [16, 6, 0, 16] // BEST
+      // VerticalTextAlignment.CENTER
+      // insets: [10, 0, 80, 10]
     })
 
-    //graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
+    
+    const labelModel = new InteriorStretchLabelModel({ insets: 50 }) // STRETCHES LABEL INTO SPACE WITH *insets* PADDING
+    const labelParameter = labelModel.createParameter(InteriorStretchLabelModelPosition.CENTER)
+
+    
+    // graph.addLabel({ owner: node, text: 'A Label', preferredSize: new Size(100, 15) })
+
+    // graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
+    graph.addLabel(gameNode, game.title, InteriorStretchLabelModel.CENTER, nodeLabelStyle) 
     nodeMap.set(game.id, gameNode)
   }
   return nodeMap
