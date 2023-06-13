@@ -46,38 +46,67 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       `<circle cx="108" cy="50" r="10"`
     ]
 
+    let circles = ``
+    for (let c = 0; c < amountOfCategories; c++){
+      let colorOfCategory = colorToString(getColorForCategory(game.types.categories[c].id))
+      circles = circles + categorieCircles[c] + ` fill= ${colorOfCategory}/>`
+    }
+
+
+    // loopup title length for every game
+    const amountOfGames = games.length
+    for (let g = 0; g < amountOfGames; g++){
+      let titleLength = game.title.length
+    }
+
+    // simple title-only version:
     // let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
     // <text x="55" y="58" font-size="16" text-anchor="middle" stroke="#000" data-content='{Binding title}'></text>`
     // let circles = ``
+
+    // titles wrap after 17 characters
+    const line_char_limit = 17
+    const title_extraLines = Math.ceil(game.title.length / line_char_limit) - 1
+    // first num is estimate of how far down from top title is + distance for first info 
+    var start_infos = 40 + title_extraLines * 10
+    // if (title_extraLines == 0){
+    //   var start_infos = 40
+    // }
+    // else if (title_extraLines == 1){
+    //   var start_infos = 50
+    // }
+    // else if (title_extraLines == 2){
+    //   var start_infos = 60
+    // }
+
+    const buffer_small_title = 10
+    const buffer_infos = 11
+
+    const first_info_txt = start_infos + buffer_small_title
+    const sec_info_title = first_info_txt + buffer_infos
+    const sec_info_txt = sec_info_title + buffer_small_title
 
     let nodeStyle = `
     <circle cx="55" cy="50" r="50" fill="#e9e9ca" />
     <text x="55" y="25" style="font-size:10" text-anchor="middle">
     <!-- <tspan data-content='{Binding title}'></tspan> -->
-      <tspan x="55" y="35" ></tspan>
+    <!-- <tspan x="55" y="35" ></tspan> -->
     </text>
     
-    <text x="55" y="63" style="font-size:8" text-anchor="middle">Players:</text>    
-    <text x="45" y="73" style="font-size:8" text-anchor="end" data-content='{Binding minplayers}'></text>
-    <text x="55" y="73" style="font-size:8" text-anchor="middle">to</text>
-    <text x="65" y="73" style="font-size:8" text-anchor="start" data-content='{Binding maxplayers}'></text>
+    <text x="55" y="`+ start_infos +`" style="font-size:8" text-anchor="middle">Players:</text>    
+    <text x="45" y="`+ first_info_txt + `" style="font-size:8" text-anchor="end" data-content='{Binding minplayers}'></text>
+    <text x="55" y="`+ first_info_txt + `" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="`+ first_info_txt + `" style="font-size:8" text-anchor="start" data-content='{Binding maxplayers}'></text>
 
-    <text x="55" y="84" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
-    <text x="45" y="94" style="font-size:8" text-anchor="end" data-content='{Binding minplaytime}'></text>
-    <text x="55" y="94" style="font-size:8" text-anchor="middle">to</text>
-    <text x="65" y="94" style="font-size:8" text-anchor="start" data-content='{Binding maxplaytime}'></text>
+    <text x="55" y="`+ sec_info_title +`" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
+    <text x="45" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="end" data-content='{Binding minplaytime}'></text>
+    <text x="55" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="start" data-content='{Binding maxplaytime}'></text>
     `
-
-    let circles = ``
-
-    for (let c = 0; c < amountOfCategories; c++){
-      let colorOfCategory = colorToString(getColorForCategory(game.types.categories[c].id))
-      circles = circles + categorieCircles[c] + ` fill= ${colorOfCategory}/>`
-    }
     
     const gameNodeStyleSVG = new StringTemplateNodeStyle(circles + nodeStyle)
 
-    const gameNode = graph.createGroupNode(null, gameShape, gameNodeStyleSVG, game)
+    const gameNode = graph.createNode(null, gameShape, gameNodeStyleSVG, game)
 
     const nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
       wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
