@@ -30,11 +30,12 @@ import { DefaultGraph } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
-import { applyEdgeBundling } from './edges/EdgeBundling'
-import { applyClustering, ClusteringAlgo } from './nodes/Clustering'
 import { applyLayout, Layout } from './layouts/Layout'
 import { createNodes } from './nodes/Nodes'
 import { createEdges } from './edges/Edges'
+import { applyClustering, ClusteringAlgo } from './nodes/Clustering'
+import { findCliques } from './nodes/Clique'
+import { applyEdgeBundling } from './edges/EdgeBundling'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -45,7 +46,8 @@ export default async function loadGraph() {
 
   const nodes = createNodes(graph, top40)
   createEdges(graph, nodes)
-  applyClustering(graph, ClusteringAlgo.EdgeBetweenness)
+  findCliques(graph)
+  applyClustering(graph, ClusteringAlgo.None)
   applyLayout(graph, Layout.OrganicLayout)
   applyEdgeBundling(graph)
   return graph
