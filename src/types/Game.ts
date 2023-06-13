@@ -1,38 +1,39 @@
 export interface Game {
-    id:              number;
-    title:           string;
-    year:            number;
-    rank:            number;
-    minplayers:      number;
-    maxplayers:      number;
-    minplaytime:     number;
-    maxplaytime:     number;
-    minage:          number;
-    rating:          Rating;
-    recommendations: Recommendations;
-    types:           Types;
-    credit:          Credit;
+  id: number;
+  title: string;
+  year: number;
+  rank: number;
+  minplayers: number;
+  maxplayers: number;
+  minplaytime: number;
+  maxplaytime: number;
+  minage: number;
+  rating: Rating;
+  recommendations: Recommendations;
+  types: Types;
+  credit: Credit;
+  clique?: number;
 }
 
 export interface Credit {
-    designer: Designer[];
+  designer: Designer[];
 }
 
 export interface Designer {
-    id:   number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 export interface Rating {
-    rating:         number;
-    num_of_reviews: number;
+  rating: number;
+  num_of_reviews: number;
 }
 
 export interface Recommendations {
-    fans_liked: number[];
+  fans_liked: number[];
 }
 
 export interface Types {
-    categories: Designer[];
-    mechanics:  Designer[];
+  categories: Designer[];
+  mechanics: Designer[];
 }
