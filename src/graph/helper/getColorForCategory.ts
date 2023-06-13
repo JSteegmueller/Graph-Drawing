@@ -4,10 +4,10 @@ const categories = new Map<number, Color>([
   [1022, Color.ORANGE], // Adventure
   [1020, Color.GREEN], // Exploration
   [1010, Color.AQUA], // Fantasy
-  [1046, Color.AZURE], // Fighting
+  [1046, Color.AQUAMARINE], // Fighting
   [1047, Color.BLUE_VIOLET], // Miniatures
   [1015, Color.BURLY_WOOD], //Civilization
-  [1021, Color.THISTLE], // Economic
+  [1021, Color.GREEN], // Economic
   [1026, Color.CORAL], // Negotiation
   [1001, Color.DARK_BLUE], // Political
   [1016, Color.DEEP_SKY_BLUE], // Si-Fi
@@ -28,7 +28,7 @@ const categories = new Map<number, Color>([
   [1069, Color.FUCHSIA], // Modern Warfare
   [1055, Color.DEEP_PINK], // American West
   [1017, Color.DODGER_BLUE], // Dice
-  [1035, Color.IVORY], // Medieval
+  [1035, Color.BLUE], // Medieval
   [1024, Color.LAVENDER_BLUSH], // Horror
   [1050, Color.LIME], // Ancient
   [1029, Color.YELLOW_GREEN], // City Building
@@ -45,13 +45,13 @@ const categories = new Map<number, Color>([
   [1040, Color.MAROON], // Murder / Mystery
   [1090, Color.TOMATO], // Pirates
   [1032, Color.SPRING_GREEN], // Action / Dexterity
-  [1118, Color.SNOW], // Mature / Adult
+  [1118, Color.ALICE_BLUE], // Mature / Adult
   [1101, Color.TEAL], // Video Game Theme
   [1023, Color.RED], // Bluffing
   [1009, Color.DODGER_BLUE], // Abstract Strategy
   [1070, Color.PAPAYA_WHIP], // Renaissance
   [1052, Color.OLIVE], // Arabian
-  [1036, Color.WHITE_SMOKE], // Prehistoric
+  [1036, Color.TAN], // Prehistoric
   [1039, Color.MISTY_ROSE] // Deduction
 ])
 
