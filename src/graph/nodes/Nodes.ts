@@ -65,19 +65,23 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
     // let circles = ``
 
     // titles wrap after 17 characters
-    const line_char_limit = 17
-    const title_extraLines = Math.ceil(game.title.length / line_char_limit) - 1
-    // first num is estimate of how far down from top title is + distance for first info 
+    const first_line_char_limit = 18
+    const second_line_char_limit = 18
+    var title_extraLines = Math.ceil(game.title.length / first_line_char_limit) - 1
     var start_infos = 40 + title_extraLines * 10
-    // if (title_extraLines == 0){
-    //   var start_infos = 40
-    // }
-    // else if (title_extraLines == 1){
-    //   var start_infos = 50
-    // }
-    // else if (title_extraLines == 2){
-    //   var start_infos = 60
-    // }
+
+    if(game.title == "Twilight Imperium: Fourth Edition"){ // Wortlängen sind blöd, deshalb hardcoded...
+      var start_infos = 60
+    }
+    else if (game.title.length - first_line_char_limit <= 0){
+      var start_infos = 40
+    }
+    else if (game.title.length - first_line_char_limit < 17){
+      var start_infos = 50
+    }
+    else {
+      var start_infos = 60
+    }
 
     const buffer_small_title = 10
     const buffer_infos = 11
