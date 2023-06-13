@@ -18,13 +18,11 @@ import { Game } from '../../types/Game'
 import getColorForCategory from '../helper/getColorForCategory'
 
 function colorToString(color: Color) {
-  let colorString = `"rgb(` + color.r + `, ` + color.g + `, ` + color.b + `)"`
-  return colorString
+  return `"rgb(` + color.r + `, ` + color.g + `, ` + color.b + `)"`
 }
 
 export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INode> {
   const gameShape = new Rect(0, 0, 100, 100)
-  const titleShape = new Rect(0, 0, 80, 80)
   const nodeMap = new Map<number, INode>()
 
   for (const game of games) {
@@ -42,40 +40,24 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
     ]
 
     let circles = ``
-    for (let c = 0; c < amountOfCategories; c++){
+    for (let c = 0; c < amountOfCategories; c++) {
       let colorOfCategory = colorToString(getColorForCategory(game.types.categories[c].id))
       circles = circles + categorieCircles[c] + ` fill= ${colorOfCategory}/>`
     }
 
-
-    // loopup title length for every game
-    const amountOfGames = games.length
-    for (let g = 0; g < amountOfGames; g++){
-      let titleLength = game.title.length
-    }
-
-    // simple title-only version:
-    // let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
-    // <text x="55" y="58" font-size="16" text-anchor="middle" stroke="#000" data-content='{Binding title}'></text>`
-    // let circles = ``
-
     // titles wrap after 17 characters
-    const first_line_char_limit = 18
-    const second_line_char_limit = 18
-    var title_extraLines = Math.ceil(game.title.length / first_line_char_limit) - 1
-    var start_infos = 40 + title_extraLines * 10
+    const first_line_char_limit = 17
+    let title_extraLines = Math.ceil(game.title.length / first_line_char_limit) - 1
+    let start_infos = 40 + title_extraLines * 10
 
-    if(game.title == "Twilight Imperium: Fourth Edition"){ // Wortlängen sind blöd, deshalb hardcoded...
-      var start_infos = 60
-    }
-    else if (game.title.length - first_line_char_limit <= 0){
-      var start_infos = 40
-    }
-    else if (game.title.length - first_line_char_limit < 17){
-      var start_infos = 50
-    }
-    else {
-      var start_infos = 60
+    if (game.title === 'Twilight Imperium: Fourth Edition') { // Wortlängen sind blöd, deshalb hardcoded...
+      start_infos = 60
+    } else if (game.title.length - first_line_char_limit <= 0) {
+      start_infos = 40
+    } else if (game.title.length - first_line_char_limit < 17) {
+      start_infos = 50
+    } else {
+      start_infos = 60
     }
 
     const buffer_small_title = 10
@@ -92,17 +74,17 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
     <!-- <tspan x="55" y="35" ></tspan> -->
     </text>
     
-    <text x="55" y="`+ start_infos +`" style="font-size:8" text-anchor="middle">Players:</text>    
-    <text x="45" y="`+ first_info_txt + `" style="font-size:8" text-anchor="end" data-content='{Binding minplayers}'></text>
-    <text x="55" y="`+ first_info_txt + `" style="font-size:8" text-anchor="middle">to</text>
-    <text x="65" y="`+ first_info_txt + `" style="font-size:8" text-anchor="start" data-content='{Binding maxplayers}'></text>
+    <text x='55' y='` + start_infos + `' style='font-size:8' text-anchor='middle'>Players:</text>    
+    <text x='45' y='` + first_info_txt + `' style='font-size:8' text-anchor='end' data-content='{Binding minplayers}'></text>
+    <text x='55' y='` + first_info_txt + `' style='font-size:8' text-anchor='middle'>to</text>
+    <text x='65' y='` + first_info_txt + `' style='font-size:8' text-anchor='start' data-content='{Binding maxplayers}'></text>
 
-    <text x="55" y="`+ sec_info_title +`" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
-    <text x="45" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="end" data-content='{Binding minplaytime}'></text>
-    <text x="55" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="middle">to</text>
-    <text x="65" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="start" data-content='{Binding maxplaytime}'></text>
+    <text x='55' y='` + sec_info_title + `' style='font-size:8' text-anchor='middle'>Playtime (in mins):</text>    
+    <text x='45' y='` + sec_info_txt + `' style='font-size:8' text-anchor='end' data-content='{Binding minplaytime}'></text>
+    <text x='55' y='` + sec_info_txt + `' style='font-size:8' text-anchor='middle'>to</text>
+    <text x='65' y='` + sec_info_txt + `' style='font-size:8' text-anchor='start' data-content='{Binding maxplaytime}'></text>
     `
-    
+
     const gameNodeStyleSVG = new StringTemplateNodeStyle(circles + nodeStyle)
 
     const gameNode = graph.createNode(null, gameShape, gameNodeStyleSVG, game)
