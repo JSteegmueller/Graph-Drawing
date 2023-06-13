@@ -1,0 +1,17 @@
+<svg>    
+    <circle cx="55" cy="50" r="50" fill="#e9e9ca" />
+    <text x="55" y="25" style="font-size:10" text-anchor="middle">
+      <tspan>TITLE</tspan>
+      <tspan x="55" y="35" ></tspan>
+    </text>
+    
+    <text x="55" y="45" style="font-size:8" text-anchor="middle">Players:</text>    
+    <text x="45" y="55" style="font-size:8" text-anchor="end" >MINPLAYER</text>
+    <text x="55" y="55" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="55" style="font-size:8" text-anchor="start" >MAXPLAYER</text>
+
+    <text x="55" y="75" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
+    <text x="45" y="85" style="font-size:8" text-anchor="end" >MINTIME</text>
+    <text x="55" y="85" style="font-size:8" text-anchor="middle">to</text>
+    <text x="65" y="85" style="font-size:8" text-anchor="start" >MAXTIME</text>
+</svg>
