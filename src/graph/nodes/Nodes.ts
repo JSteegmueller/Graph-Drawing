@@ -46,12 +46,13 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
     }
 
     // titles wrap after 17 characters
-    const first_line_char_limit = 17
-    let title_extraLines = Math.ceil(game.title.length / first_line_char_limit) - 1
-    let start_infos = 40 + title_extraLines * 10
+    const first_line_char_limit = 18
+    let start_infos
 
     if (game.title === 'Twilight Imperium: Fourth Edition') { // Wortlängen sind blöd, deshalb hardcoded...
       start_infos = 60
+    } else if (game.title === 'Food Chain Magnate') {
+      start_infos = 50
     } else if (game.title.length - first_line_char_limit <= 0) {
       start_infos = 40
     } else if (game.title.length - first_line_char_limit < 17) {
