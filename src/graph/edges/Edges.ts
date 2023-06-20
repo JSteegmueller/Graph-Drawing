@@ -10,6 +10,7 @@ import {
   Visual
 } from 'yfiles'
 import { Game } from '../../types/Game'
+import { types } from 'util';
 
 export function createEdges(graph: DefaultGraph, nodes: Map<number, INode>) {
   const maxEdgeThickness: number = 10;
@@ -19,17 +20,16 @@ export function createEdges(graph: DefaultGraph, nodes: Map<number, INode>) {
     {
       const likedNode = nodes.get(liked_id)
       // Map.get can return undefined->check for undefined to secure type.
-      if(likedNode === undefined)
-        throw new Error("likedNode is undefined");
       // calculateEdgeThickness
+      if (!likedNode) continue
       // TODO: replace with CustomEdgeClass.calculateEdgeThickness
-      var similarity : number = calculateSimilarity(node, likedNode)
+      var similarity: number = calculateSimilarity(node, likedNode)
       var thickness: number = Math.ceil((1/similarity) * maxEdgeThickness)
 
-      if (!likedNode) continue
+      
       graph.createEdge(node, likedNode, new PolylineEdgeStyle(
       {
-        stroke: thickness.toString() + 'px solid blue',
+        stroke: thickness.toString() + 'px solid green', 
         targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
       }))
     }
@@ -46,9 +46,10 @@ export function calculateSimilarity(sourceNode: INode, targetNode: INode)
   {
     for (const targetCategory of targetGame.types.categories)
     {
-      if(sourceCategory === targetCategory)
+      if(sourceCategory.id === targetCategory.id)
       {
         similarity_counter++
+        console.log("source/target" + sourceCategory.name + targetCategory.name)
       }
     }
   }
