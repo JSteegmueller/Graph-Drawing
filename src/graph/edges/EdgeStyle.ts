@@ -1,11 +1,9 @@
 import { Arrow, DefaultGraph, INode, PolylineEdgeStyle } from 'yfiles'
 import { Game } from '../../types/Game'
 
-const maxEdgeThickness: number = 10
+const maxEdgeThickness: number = 6
 
 export function applyEdgeStyle(graph: DefaultGraph) {
-
-
   for (const edge of graph.edges.toList()) {
     const node = edge.sourceNode
     const likedNode = edge.targetNode

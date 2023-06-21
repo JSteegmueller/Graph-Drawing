@@ -1,5 +1,5 @@
 import { CliqueSubstructures, DefaultGraph, IEdge, INode } from 'yfiles'
-import { Game } from '../../types/Game'
+import { Game, newGame } from '../../types/Game'
 
 export function findCliques(graph: DefaultGraph) {
   const algorithm = new CliqueSubstructures()
@@ -20,6 +20,15 @@ export function findCliques(graph: DefaultGraph) {
   }
   removeCliqueEdges(graph)
   rerouteEdges(graph, cliqueNodeMap)
+  for (const [, cliqueNode] of cliqueNodeMap) {
+    const metaGame: Game = newGame()
+    for (const node of graph.getChildren(cliqueNode)) {
+      const game = node.tag as Game
+      if (!game) continue
+      metaGame.types.categories.push(...game.types.categories)
+    }
+    cliqueNode.tag = metaGame
+  }
 }
 
 function removeCliqueEdges(graph: DefaultGraph) {
