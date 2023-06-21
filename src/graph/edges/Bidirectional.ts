@@ -1,4 +1,4 @@
-import { Arrow, DefaultGraph, IEdge, INode, PolylineEdgeStyle } from 'yfiles'
+import { DefaultGraph, IEdge, INode } from 'yfiles'
 
 export function mergeBidirectional(graph: DefaultGraph) {
   const edgeRemoveList = new Set<IEdge>()
@@ -23,12 +23,7 @@ export function mergeBidirectional(graph: DefaultGraph) {
     graph.remove(edge)
   }
   for (const [source, target] of edgeAddList) {
-    graph.createEdge(source, target, new PolylineEdgeStyle(
-      {
-        stroke: '3px solid blue',
-        targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' }),
-        sourceArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
-      }))
+    graph.createEdge(source, target)
   }
 
 }

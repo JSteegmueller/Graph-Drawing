@@ -1,4 +1,4 @@
-import { Arrow, CliqueSubstructures, DefaultGraph, IEdge, INode, PolylineEdgeStyle } from 'yfiles'
+import { CliqueSubstructures, DefaultGraph, IEdge, INode } from 'yfiles'
 import { Game } from '../../types/Game'
 
 export function findCliques(graph: DefaultGraph) {
@@ -50,11 +50,7 @@ function rerouteEdges(graph: DefaultGraph, cliqueNodeMap: Map<Number, INode>) {
 function replaceEdge(edge: IEdge, sourceNode: INode | undefined | null, targetNode: INode | undefined | null, graph: DefaultGraph) {
   if (!sourceNode || !targetNode) return
   graph.remove(edge)
-  graph.createEdge(sourceNode, targetNode, new PolylineEdgeStyle(
-    {
-      stroke: '3px solid blue',
-      targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
-    }))
+  graph.createEdge(sourceNode, targetNode)
 }
 
 function removeDuplicateEdges(graph: DefaultGraph) {
