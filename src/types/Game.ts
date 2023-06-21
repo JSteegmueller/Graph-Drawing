@@ -37,3 +37,21 @@ export interface Types {
   categories: Designer[];
   mechanics: Designer[];
 }
+
+export function newGame(): Game {
+  return {
+    credit: { designer: [] },
+    id: 0,
+    maxplayers: 0,
+    maxplaytime: 0,
+    minage: 0,
+    minplayers: 0,
+    minplaytime: 0,
+    rank: 0,
+    rating: { rating: 0, num_of_reviews: 0 },
+    recommendations: { fans_liked: [] },
+    title: '',
+    types: { categories: [], mechanics: [] },
+    year: 0
+  }
+}
