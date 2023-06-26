@@ -1,5 +1,6 @@
 import { Arrow, DefaultGraph, INode, PolylineEdgeStyle } from 'yfiles'
 import { Game } from '../../types/Game'
+import { BIDIRECTIONAL } from './Bidirectional'
 
 const maxEdgeThickness: number = 6
 
@@ -8,14 +9,27 @@ export function applyEdgeStyle(graph: DefaultGraph) {
     const node = edge.sourceNode
     const likedNode = edge.targetNode
     if (!node || !likedNode) continue
-    const similarity: number = calculateSimilarity(node, likedNode)
-    const thickness: number = Math.ceil((1 / similarity) * maxEdgeThickness)
-    graph.createEdge(node, likedNode, new PolylineEdgeStyle(
-      {
-        stroke: thickness.toString() + 'px solid green',
-        targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
-      }))
-    graph.remove(edge)
+    if (edge.tag === BIDIRECTIONAL) {
+      const similarity: number = calculateSimilarity(node, likedNode)
+      //TODO calc differently
+      const thickness: number = Math.ceil((1 / similarity) * maxEdgeThickness)
+      graph.createEdge(node, likedNode, new PolylineEdgeStyle(
+        {
+          stroke: thickness.toString() + 'px solid blue',
+          sourceArrow: new Arrow({ fill: 'blue', scale: 2, type: 'default' }),
+          targetArrow: new Arrow({ fill: 'blue', scale: 2, type: 'default' })
+        }))
+      graph.remove(edge)
+    } else {
+      const similarity: number = calculateSimilarity(node, likedNode)
+      const thickness: number = Math.ceil((1 / similarity) * maxEdgeThickness)
+      graph.createEdge(node, likedNode, new PolylineEdgeStyle(
+        {
+          stroke: thickness.toString() + 'px solid green',
+          targetArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' })
+        }))
+      graph.remove(edge)
+    }
   }
 }
 
