@@ -11,7 +11,6 @@ export function applyEdgeStyle(graph: DefaultGraph) {
     if (!node || !likedNode) continue
     if (edge.tag === BIDIRECTIONAL) {
       const similarity: number = calculateSimilarity(node, likedNode)
-      //TODO calc differently
       const thickness: number = Math.ceil((1 / similarity) * maxEdgeThickness)
       graph.createEdge(node, likedNode, new PolylineEdgeStyle(
         {
@@ -42,6 +41,7 @@ function calculateSimilarity(sourceNode: INode, targetNode: INode) {
     for (const targetCategory of targetGame.types.categories) {
       if (sourceCategory.id === targetCategory.id) {
         similarity_counter++
+        break
       }
     }
   }
