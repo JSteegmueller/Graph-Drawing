@@ -15,7 +15,6 @@ export function findCliques(graph: DefaultGraph) {
       graph.setParent(node, cliqueNode)
       const game = (node.tag as Game)
       game.clique = cliqueID
-      node.tag = game
     }
   }
   removeCliqueEdges(graph)
@@ -32,10 +31,16 @@ export function findCliques(graph: DefaultGraph) {
 }
 
 function removeCliqueEdges(graph: DefaultGraph) {
+  const edgeRemoveList = new Set<IEdge>()
   graph.edges.toList().forEach(edge => {
-    if ((edge.sourceNode?.tag as Game).clique ===
-      (edge.targetNode?.tag as Game).clique)
-      graph.remove(edge)
+    const sourceClique = (edge.sourceNode?.tag as Game).clique
+    //if (sourceClique) { BREAKING CHANGE
+      if (sourceClique === (edge.targetNode?.tag as Game).clique)
+        edgeRemoveList.add(edge)
+      //}
+    })
+  edgeRemoveList.forEach(edge => {
+    graph.remove(edge)
   })
 }
 
