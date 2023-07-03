@@ -46,9 +46,9 @@ const top100: Game[] = uTop100
 export default async function loadGraph() {
   const graph = new DefaultGraph()
 
-  const nodes = createNodes(graph, top100)
+  const nodes = createNodes(graph, top40)
   createEdges(graph, nodes)
-  console.log("Base graph loaded")
+  console.log('Base graph loaded')
 
   findCliques(graph)
   mergeBidirectional(graph)
@@ -57,6 +57,6 @@ export default async function loadGraph() {
   applyLayout(graph, Layout.OrganicLayout)
   applyEdgeStyle(graph)
   applyEdgeRouting(graph)
-  console.log("Graph building complete")
+  console.log('Graph building complete')
   return graph
 }
