@@ -1,5 +1,6 @@
 import { DefaultGraph, IEdge, INode } from 'yfiles'
 
+export const BIDIRECTIONAL = 'bidirectional'
 export function mergeBidirectional(graph: DefaultGraph) {
   const edgeRemoveList = new Set<IEdge>()
   const edgeAddList = new Set<[INode, INode]>()
@@ -23,7 +24,7 @@ export function mergeBidirectional(graph: DefaultGraph) {
     graph.remove(edge)
   }
   for (const [source, target] of edgeAddList) {
-    graph.createEdge(source, target)
+    graph.createEdge(source, target).tag = BIDIRECTIONAL
   }
 
 }
