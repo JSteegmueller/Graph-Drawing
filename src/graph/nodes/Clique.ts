@@ -13,14 +13,29 @@ export function findCliques(graph: DefaultGraph) {
 
   let cliqueID = 0
   for (const clique of result.cliques) {
+    const catCounter = new Map<string, number>()
+    const mechCounter = new Map<string, number>()
+    console.log('-----------------------------------')
+    console.log(`CliqueId: ${cliqueID}, ${clique.nodes.size}`)
     cliqueID++
     const cliqueNode = graph.createGroupNode()
     cliqueNodeMap.set(cliqueID, cliqueNode)
     for (const node of clique.nodes) {
       graph.setParent(node, cliqueNode)
       const game = (node.tag as Game)
+      game.types.categories.map(cat => catCounter.set(cat.name, (catCounter.get(cat.name) ?? 0) + 1))
+      game.types.mechanics.map(mech => mechCounter.set(mech.name, (mechCounter.get(mech.name) ?? 0) + 1))
       game.clique = cliqueID
     }
+    catCounter.forEach((value, key) => {
+      if (value < clique.nodes.size / 2) catCounter.delete(key)
+    })
+    mechCounter.forEach((value, key) => {
+      if (value < clique.nodes.size / 2) mechCounter.delete(key)
+    })
+    console.log(catCounter)
+    console.log(mechCounter)
+    console.log('-----------------------------------')
   }
   removeCliqueEdges(graph)
   rerouteEdges(graph, cliqueNodeMap)
