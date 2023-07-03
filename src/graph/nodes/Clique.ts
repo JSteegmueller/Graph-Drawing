@@ -22,8 +22,8 @@ export function findCliques(graph: DefaultGraph) {
       game.clique = cliqueID
     }
   }
-  //removeCliqueEdges(graph)
-  //rerouteEdges(graph, cliqueNodeMap)
+  removeCliqueEdges(graph)
+  rerouteEdges(graph, cliqueNodeMap)
   for (const [, cliqueNode] of cliqueNodeMap) {
     const metaGame: Game = newGame()
     for (const node of graph.getChildren(cliqueNode)) {
