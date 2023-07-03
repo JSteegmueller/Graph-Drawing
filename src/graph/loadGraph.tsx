@@ -36,8 +36,8 @@ import { createEdges } from './edges/Edges'
 import { applyClustering, ClusteringAlgo } from './nodes/Clustering'
 import { findCliques } from './nodes/Clique'
 import { mergeBidirectional } from './edges/Bidirectional'
-import { applyEdgeRouting } from './edges/Router'
 import { applyEdgeStyle } from './edges/EdgeStyle'
+import { applyEdgeRouting } from './edges/Router'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -47,13 +47,29 @@ export default async function loadGraph() {
   const graph = new DefaultGraph()
 
   const nodes = createNodes(graph, top40)
+  console.log('Graph: Nodes loaded')
+
   createEdges(graph, nodes)
+  console.log('Graph: Edges created')
+
   findCliques(graph)
+  console.log('Graph: Cliques found')
 
   mergeBidirectional(graph)
+  console.log('Graph: Bidirectional merged')
+
   applyClustering(graph, ClusteringAlgo.None)
+  console.log('Graph: Clustered')
+
   applyLayout(graph, Layout.OrganicLayout)
+  console.log('Graph: Layout applied')
+
   applyEdgeStyle(graph)
+  console.log('Graph: Edges styled')
+
   applyEdgeRouting(graph)
+  console.log('Graph: Edges routed')
+
+  console.log('Graph: completed')
   return graph
 }
