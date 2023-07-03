@@ -1,8 +1,13 @@
 import { CliqueSubstructures, DefaultGraph, IEdge, INode } from 'yfiles'
 import { Game, newGame } from '../../types/Game'
+import { BIDIRECTIONAL } from '../edges/Bidirectional'
 
 export function findCliques(graph: DefaultGraph) {
-  const algorithm = new CliqueSubstructures()
+  const algorithm = new CliqueSubstructures({
+    subgraphEdges: {
+      excludes: (edge: IEdge) => edge.tag !== BIDIRECTIONAL
+    }
+  })
   const result = algorithm.run(graph)
   const cliqueNodeMap: Map<Number, INode> = new Map<Number, INode>()
 
@@ -17,8 +22,8 @@ export function findCliques(graph: DefaultGraph) {
       game.clique = cliqueID
     }
   }
-  removeCliqueEdges(graph)
-  rerouteEdges(graph, cliqueNodeMap)
+  //removeCliqueEdges(graph)
+  //rerouteEdges(graph, cliqueNodeMap)
   for (const [, cliqueNode] of cliqueNodeMap) {
     const metaGame: Game = newGame()
     for (const node of graph.getChildren(cliqueNode)) {
