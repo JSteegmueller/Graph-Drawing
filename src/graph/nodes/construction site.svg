@@ -1,0 +1,194 @@
+<svg viewBox="0 0 300 300">
+    <!-- BULDING A HOUSE -->
+
+    <!-- version one, not so flexible tho... -->
+    <!-- <rect x="50" y="50" width="50" height="50" fill="#14c2c2" />
+    <rect x="100" y="50" width="25" height="50" fill="#87dc93" 
+    transform=" skewY(-25)   translate(0 47)"/> -->
+
+    <rect width="256" height="446" fill="#ffffff"/>
+
+    <!-- house version 1 -->
+    <!-- <polygon points="100,50 50,100, 50,200  150,200 150,100 " fill="#c214b9"/>
+    <polygon points="150,200 150,100 200,75, 200,175 " fill="#abc214"/>
+    <polygon points="200,75, 150,100 100,50 150,25" fill="#c26214"/> -->
+
+    <!-- house version 2, broader -->
+    <!-- <polygon points="75,40 0,100, 0,250  150,250 150,100 " fill="#c214b9"/> -->
+    <!-- <polygon points="150,250 150,100 200,75, 200,225 " fill="#abc214"/> -->
+    <!-- roof versions -->
+    <!-- <polygon points="200,75, 150,100 75,40 125,15" fill="#c26214"/> -->
+    <!-- <polygon points="210,80, 155,105 75,40 125,15" fill="#c22514"/> -->
+
+    <!-- house version 2, broader and longer -->
+    <polygon points="75,40 0,100, 0,250  150,250 150,100 " fill="#d8c192"/>
+    <polygon points="150,250 150,100 225,50, 225,200 " fill="#d8c192"/>
+    <!-- roof versions -->
+    <!-- <polygon points="225,50, 150,100 75,40 150,-5" fill="#c26214"/> -->
+    <polygon points="231,55, 155,105 75,40 150,-5" fill="#c26214"/>
+    <polygon points="231,55, 155,10 " fill="#c26214"/>
+    <polygon points="77,41, 0,100 " stroke="#c26214" stroke-width="3" fill="none"/>
+    <!-- <polygon points="210,80, 155,105 75,40 125,15" fill="#c22514"/> -->
+
+
+
+    <!-- person option 1 -->
+    <!-- <svg>
+    <g transform="translate(50,150) scale(0.15 0.2)">
+    <circle cx="127.9" cy="44" r="28" fill="#4c2a5e"/>
+    <path d="M153.9,134.7l34.8,27a12,12,0,0,0,16.9-16.9L166,93.9A19.9,19.9,0,0,0,151.9,88h-48a20.3,20.3,0,0,0-14.2,5.9L50.1,144.8a12,12,0,0,0,17,16.9l34.8-27L74.1,222.3a12,12,0,0,0,21.8,10.2l32-50.4h0l32,50.4a12,12,0,1,0,21.7-10.2Z" fill="#4c2a5e"/>
+    </svg> -->
+
+    <!-- person option 2 -->
+    <svg>
+    <g transform="translate(-10,210) scale(0.3 0.3)">
+    <path fill="#2e20c7" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
+		v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
+	<circle fill="#2e20c7" cx="62.55" cy="15.7" r="15.7"/>
+    </svg>
+
+    <svg>
+    <g transform="translate(11,210) scale(0.3 0.3)">
+    <path fill="#2e20c7" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
+		v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
+	<circle fill="#2e20c7" cx="62.55" cy="15.7" r="15.7"/>
+    </svg>
+    
+    <svg>
+    <g transform="translate(32,210) scale(0.3 0.3)">
+    <path fill="#2e20c7" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
+		v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
+	<circle fill="#2e20c7" cx="62.55" cy="15.7" r="15.7"/>
+    </svg>
+    
+    <svg>
+    <g transform="translate(60,210) scale(0.3 0.3)">
+    <path fill="#0fe2e5" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
+		v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
+	<circle fill="#0fe2e5" cx="62.55" cy="15.7" r="15.7"/>
+    </svg>
+
+    <svg>
+    <g transform="translate(80,210) scale(0.3 0.3)">
+    <path fill="#0fe2e5" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
+		v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
+	<circle fill="#0fe2e5" cx="62.55" cy="15.7" r="15.7"/>
+    </svg>
+
+    <svg>
+    <g transform="translate(100,210) scale(0.3 0.3)">
+    <path fill="#0fe2e5" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
+		v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
+	<circle fill="#0fe2e5" cx="62.55" cy="15.7" r="15.7"/>
+    </svg>
+
+    <svg>
+    <g transform="translate(120,210) scale(0.3 0.3)">
+    <path fill="#0fe2e5" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
+		v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
+	<circle fill="#0fe2e5" cx="62.55" cy="15.7" r="15.7"/>
+    </svg>
+
+    
+    
+    <!-- windows version 1 -->
+    <svg>
+        <g transform="translate(145,85) scale(0.3 0.4)">
+        <!-- <polygon points="10,10, 0,10 0,0 10,0 " fill="#2014c2"/> -->
+        <!-- <polygon points="100,75, 50,100 50,50 100,25 " fill="#2014c2"/> -->
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#25c214"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <svg>
+        <g transform="translate(166,71) scale(0.3 0.4)">
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#f20505"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <svg>
+        <g transform="translate(187,57) scale(0.3 0.4)">
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#1414c2"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+    <svg>
+        <g transform="translate(145,130) scale(0.3 0.4)">
+        <!-- <polygon points="10,10, 0,10 0,0 10,0 " fill="#2014c2"/> -->
+        <!-- <polygon points="100,75, 50,100 50,50 100,25 " fill="#2014c2"/> -->
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#14bcc2"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <svg>
+        <g transform="translate(166,116) scale(0.3 0.4)">
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#c705f2"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <svg>
+        <g transform="translate(187,102) scale(0.3 0.4)">
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#14c257"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <svg>
+        <g transform="translate(145,175) scale(0.3 0.4)">
+        <!-- <polygon points="10,10, 0,10 0,0 10,0 " fill="#2014c2"/> -->
+        <!-- <polygon points="100,75, 50,100 50,50 100,25 " fill="#2014c2"/> -->
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#c21488"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <svg>
+        <g transform="translate(166,161) scale(0.3 0.4)">
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#f27f05"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <svg>
+        <g transform="translate(187,147) scale(0.3 0.4)">
+        <polygon points="100,125, 50,150 50,50 100,25 " fill="#9e6a6e"/>
+        <polygon points="100,125, 50,150 50,50 100,25 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="75,136, 75,37 " stroke="#000000" stroke-width="4" fill="none"/>
+        <polygon points="100,80, 50,105 " stroke="#000000" stroke-width="4" fill="none"/>
+    </svg>
+
+    <!-- rank version 1 -->
+    <!-- <svg>
+    <g transform="translate(59,60) scale(2 2)">
+    <path fill="#eaf10d" d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/> 
+    <path fill="#eaf10d" d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+    </svg> -->
+    
+    <!-- rank version 2 -->
+    <svg>
+        <rect x = "140" y="200" width="40" height="25" rx="3" fill="brown"/>
+        <rect x = "158" y="200" width="4" height="70" fill="brown"/>
+    </svg>
+
+
+    <text x="10" y="115" font-size="13" stroke="#000" stroke-width="0.75px" stroke-linejoin="round">Twilight Imperium:</text> -->
+    <text x="22" y="130" font-size="13" stroke="#000" stroke-width="0.75px" stroke-linejoin="round">Fourth Edition</text> -->
+    <!-- rank version 1 number -->
+    <!-- <text x="71" y="77" font-size="15" stroke="#000" stroke-width="0.75px" stroke-linejoin="round">1</text> --> -->
+     <!-- rank version 2 number -->
+    <text x="152" y="217" font-size="15" stroke="#000" stroke-width="0.75px" stroke-linejoin="round">81</text> -->
+    <text x="40" y="150" font-size="10" stroke="#000" stroke-width="0.75px" stroke-linejoin="round">60 - 120 mins</text> -->
+    
+</svg>

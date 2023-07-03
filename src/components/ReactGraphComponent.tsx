@@ -28,7 +28,7 @@
 
 import 'yfiles/yfiles.css'
 import React, { Component } from 'react'
-import { GraphComponent, GraphViewerInputMode, ICommand } from 'yfiles'
+import { GraphComponent, GraphViewerInputMode, HierarchicNestingPolicy, ICommand } from 'yfiles'
 import '../lib/yFilesLicense'
 import loadGraph from '../graph/loadGraph'
 import { eventBus } from '../lib/EventBus'
@@ -55,7 +55,8 @@ export default class ReactGraphComponent extends Component {
     this.graphComponent.div.style.width = '100%'
     this.graphComponent.div.style.height = '100%'
     this.div.current!.appendChild(this.graphComponent.div)
-
+    const graphModelManager = this.graphComponent.graphModelManager
+    graphModelManager.hierarchicNestingPolicy = HierarchicNestingPolicy.GROUP_NODES
     this.graphComponent.graph = await loadGraph()
 
     // center the newly created graph
