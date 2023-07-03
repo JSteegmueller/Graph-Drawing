@@ -1,4 +1,5 @@
 import {
+  Color,
   DefaultGraph,
   DefaultLabelStyle,
   Font,
@@ -9,22 +10,15 @@ import {
   InteriorStretchLabelModel,
   InteriorStretchLabelModelPosition,
   Rect,
-  ShapeNodeShape,
-  ShapeNodeStyle,
-  Stroke,
-  TextWrapping,
-  VerticalTextAlignment,
   StringTemplateNodeStyle,
-  Fill,
-  Color
+  TextWrapping,
+  VerticalTextAlignment
 } from 'yfiles'
 import { Game } from '../../types/Game'
-import { ReactComponent as nodeStyle } from './node-style.svg';
-import getColorForCategory from '../helper/getColorForCategory';
+import getColorForCategory from '../helper/getColorForCategory'
 
 function colorToString(color: Color) {
-  let colorString = `"rgb(` + color.r + `, ` + color.g + `, ` + color.b + `)"`
-  return colorString
+  return `"rgb(` + color.r + `, ` + color.g + `, ` + color.b + `)"`
 }
 
 export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INode> {
@@ -46,7 +40,7 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
     ]
 
     let circles = ``
-    for (let c = 0; c < amountOfCategories; c++){
+    for (let c = 0; c < amountOfCategories; c++) {
       let colorOfCategory = colorToString(getColorForCategory(game.types.categories[c].id))
       circles = circles + categorieCircles[c] + ` fill= ${colorOfCategory}/>`
     }
@@ -149,23 +143,22 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
     const sec_info_txt = sec_info_title + buffer_small_title
 
     let nodeStyle = `
-    <circle cx="55" cy="50" r="50" fill="#e9e9ca" />
-    <text x="55" y="25" style="font-size:10" text-anchor="middle">
+    <circle cx='55' cy='50' r='50' fill='#e9e9ca' />
+    <text x='55' y='25' style='font-size:10' text-anchor='middle'>
     <!-- <tspan data-content='{Binding title}'></tspan> -->
     <!-- <tspan x="55" y="35" ></tspan> -->
     </text>
     
-    <text x="55" y="`+ start_infos +`" style="font-size:8" text-anchor="middle">Players:</text>    
-    <text x="45" y="`+ first_info_txt + `" style="font-size:8" text-anchor="end" data-content='{Binding minplayers}'></text>
-    <text x="55" y="`+ first_info_txt + `" style="font-size:8" text-anchor="middle">to</text>
-    <text x="65" y="`+ first_info_txt + `" style="font-size:8" text-anchor="start" data-content='{Binding maxplayers}'></text>
+    <text x='55' y='` + start_infos + `' style='font-size:8' text-anchor='middle'>Players:</text>    
+    <text x='45' y='` + first_info_txt + `' style='font-size:8' text-anchor='end' data-content='{Binding minplayers}'></text>
+    <text x='55' y='` + first_info_txt + `' style='font-size:8' text-anchor='middle'>to</text>
+    <text x='65' y='` + first_info_txt + `' style='font-size:8' text-anchor='start' data-content='{Binding maxplayers}'></text>
 
-    <text x="55" y="`+ sec_info_title +`" style="font-size:8" text-anchor="middle">Playtime (in mins):</text>    
-    <text x="45" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="end" data-content='{Binding minplaytime}'></text>
-    <text x="55" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="middle">to</text>
-    <text x="65" y="`+ sec_info_txt +`" style="font-size:8" text-anchor="start" data-content='{Binding maxplaytime}'></text>
+    <text x='55' y='` + sec_info_title + `' style='font-size:8' text-anchor='middle'>Playtime (in mins):</text>    
+    <text x='45' y='` + sec_info_txt + `' style='font-size:8' text-anchor='end' data-content='{Binding minplaytime}'></text>
+    <text x='55' y='` + sec_info_txt + `' style='font-size:8' text-anchor='middle'>to</text>
+    <text x='65' y='` + sec_info_txt + `' style='font-size:8' text-anchor='start' data-content='{Binding maxplaytime}'></text>
     `
-    
     // const gameNodeStyleSVG = new StringTemplateNodeStyle(circles + nodeStyle)
     const txt_y = first_info_txt + 115
     const clock_y = txt_y -20
@@ -194,8 +187,6 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       `
 
     const gameNodeStyleSVG = new StringTemplateNodeStyle(housing+people+windows+`</g>`)
-    
-
     const gameNode = graph.createNode(null, gameShape, gameNodeStyleSVG, game)
 
     const nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
@@ -218,15 +209,15 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
       // insets: [10, 0, 80, 10]
     })
 
-    
+
     const labelModel = new InteriorStretchLabelModel({ insets: 50 }) // STRETCHES LABEL INTO SPACE WITH *insets* PADDING
     const labelParameter = labelModel.createParameter(InteriorStretchLabelModelPosition.CENTER)
 
-    
+
     // graph.addLabel({ owner: node, text: 'A Label', preferredSize: new Size(100, 15) })
 
     // graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
-    graph.addLabel(gameNode, game.title, InteriorStretchLabelModel.CENTER, nodeLabelStyle) 
+    graph.addLabel(gameNode, game.title, InteriorStretchLabelModel.CENTER, nodeLabelStyle)
     nodeMap.set(game.id, gameNode)
   }
   return nodeMap

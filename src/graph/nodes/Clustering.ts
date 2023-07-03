@@ -15,7 +15,8 @@ export enum ClusteringAlgo {
   KMeans,
   LouvainModularity,
   LabelPropagation,
-  Hierarchical
+  Hierarchical,
+  None
 
 }
 
@@ -40,6 +41,8 @@ export function applyClustering(graph: DefaultGraph, algo: ClusteringAlgo) {
     case ClusteringAlgo.Hierarchical:
       clustering = new HierarchicalClustering()
       break
+    case ClusteringAlgo.None:
+      return
   }
   let clusteringResult = clustering.run(graph)
   for (const cluster of clusteringResult.clusters) {
