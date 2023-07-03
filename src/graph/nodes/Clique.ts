@@ -34,11 +34,11 @@ function removeCliqueEdges(graph: DefaultGraph) {
   const edgeRemoveList = new Set<IEdge>()
   graph.edges.toList().forEach(edge => {
     const sourceClique = (edge.sourceNode?.tag as Game).clique
-    //if (sourceClique) { BREAKING CHANGE
+    if (sourceClique) {
       if (sourceClique === (edge.targetNode?.tag as Game).clique)
         edgeRemoveList.add(edge)
-      //}
-    })
+    }
+  })
   edgeRemoveList.forEach(edge => {
     graph.remove(edge)
   })
