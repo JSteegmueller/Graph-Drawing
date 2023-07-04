@@ -1,9 +1,4 @@
-import {
-  DefaultGraph,
-  INode,
-  InteriorStretchLabelModel,
-  Rect
-} from 'yfiles'
+import { DefaultGraph, INode, InteriorStretchLabelModel, Rect } from 'yfiles'
 import { Game } from '../../types/Game'
 import { getNodeStyle } from './NodeStyle'
 
