@@ -52,6 +52,9 @@ export default async function loadGraph() {
   createEdges(graph, nodes)
   console.log('Graph: Edges created')
 
+  mergeBidirectional(graph)
+  console.log('Graph: Bidirectional merged')
+
   findCliques(graph)
   console.log('Graph: Cliques found')
 
