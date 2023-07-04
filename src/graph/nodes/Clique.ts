@@ -1,6 +1,7 @@
 import { CliqueSubstructures, DefaultGraph, IEdge, INode } from 'yfiles'
 import { Game, newGame } from '../../types/Game'
 import { BIDIRECTIONAL } from '../edges/Bidirectional'
+import { getGroupNodeStyle } from './GroupNodeStyle'
 
 export function findCliques(graph: DefaultGraph) {
   const algorithm = new CliqueSubstructures({
@@ -47,6 +48,8 @@ export function findCliques(graph: DefaultGraph) {
       metaGame.types.categories.push(...game.types.categories)
     }
     cliqueNode.tag = metaGame
+    let groupNodeStyleSVG =  getGroupNodeStyle(cliqueNode.tag, graph.getChildren(cliqueNode))
+    //graph.setStyle(cliqueNode, groupNodeStyleSVG)
   }
 }
 
