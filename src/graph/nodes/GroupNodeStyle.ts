@@ -1,7 +1,6 @@
-import { Game } from '../../types/Game'
-import { DefaultGraph, IListEnumerable, INode, LayoutGraphUtilities, StringTemplateNodeStyle } from 'yfiles'
+import { DefaultGraph, IListEnumerable, INode, StringTemplateNodeStyle } from 'yfiles'
 
-export function getGroupNodeStyle(graph: DefaultGraph, containedGames:  IListEnumerable<INode>) {
+export function getGroupNodeStyle(graph: DefaultGraph, containedGames: IListEnumerable<INode>) {
   //const layoutGraph = LayoutGraphUtilities.asLayoutGraph(graph);
 
   //const layout = layoutGraph.getLayout(node);
@@ -28,8 +27,12 @@ export function getGroupNodeStyle(graph: DefaultGraph, containedGames:  IListEnu
 
 export function applyGroupNodeStyle(graph: DefaultGraph) {
   for (const node of graph.nodes) {
+    console.log(node.tag.title)
+    console.log(node.tag.clique)
+    console.log(node.layout.center.x)
+    console.log(node.layout.center.y)
     if (graph.isGroupNode(node)) {
-      let groupNodeStyleSVG =  getGroupNodeStyle(graph, graph.getChildren(node))
+      let groupNodeStyleSVG = getGroupNodeStyle(graph, graph.getChildren(node))
       graph.setStyle(node, groupNodeStyleSVG)
     }
   }
