@@ -13,9 +13,9 @@ export function applyEdgeStyle(graph: DefaultGraph) {
     const similarity: number = calculateSimilarity(node, likedNode)
     const thickness: number = Math.ceil((1 / similarity) * maxEdgeThickness)
     const polyOptions = {
-      stroke: thickness.toString() + 'px solid green',
-      sourceArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' }),
-      targetArrow: edge.tag === BIDIRECTIONAL ? new Arrow({ fill: 'green', scale: 2, type: 'default' }) : undefined
+      stroke: thickness.toString() + 'px dashed #236671',
+      sourceArrow: new Arrow({ fill: '#236671', scale: 2, type: 'short' }),
+      targetArrow: edge.tag === BIDIRECTIONAL ? new Arrow({ fill: '#236671', scale: 2, type: 'short' }) : undefined
     }
     createPortEdge(graph, node, likedNode, new PolylineEdgeStyle(polyOptions))
     graph.remove(edge)

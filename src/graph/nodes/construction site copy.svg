@@ -191,8 +191,8 @@
     </svg>
 
     <svg>
-        <rect x = "-30" y="120" width="40" height="25" rx="3" fill="#1c454b"/>
-        <rect x = "-12" y="200" width="4" height="70" fill="brown"/>
+        <rect x = "-30" y="120" width="40" height="25" rx="3" fill="#236671"/>
+        <rect x = "-12" y="200" width="4" height="70" fill="#ff0000"/>
     </svg>
 
     <g transform="translate(75, 47) scale(2 2)">
