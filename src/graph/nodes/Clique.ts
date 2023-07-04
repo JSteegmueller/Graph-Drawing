@@ -48,8 +48,6 @@ export function findCliques(graph: DefaultGraph) {
       metaGame.types.categories.push(...game.types.categories)
     }
     cliqueNode.tag = metaGame
-    let groupNodeStyleSVG =  getGroupNodeStyle(cliqueNode.tag, graph.getChildren(cliqueNode))
-    //graph.setStyle(cliqueNode, groupNodeStyleSVG)
   }
 }
 
