@@ -38,6 +38,7 @@ import { findCliques } from './nodes/Clique'
 import { mergeBidirectional } from './edges/Bidirectional'
 import { applyEdgeStyle } from './edges/EdgeStyle'
 import { applyEdgeRouting } from './edges/Router'
+import { applyGroupNodeStyle } from './nodes/GroupNodeStyle'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -52,6 +53,9 @@ export default async function loadGraph() {
   createEdges(graph, nodes)
   console.log('Graph: Edges created')
 
+  mergeBidirectional(graph)
+  console.log('Graph: Bidirectional merged')
+
   findCliques(graph)
   console.log('Graph: Cliques found')
 
@@ -63,6 +67,9 @@ export default async function loadGraph() {
 
   applyLayout(graph, Layout.OrganicLayout)
   console.log('Graph: Layout applied')
+
+  applyGroupNodeStyle(graph)
+  console.log('Graph: Group nodes styled')
 
   applyEdgeStyle(graph)
   console.log('Graph: Edges styled')
