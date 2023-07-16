@@ -6,6 +6,7 @@ import { createPortEdge } from './Edges'
 const maxEdgeThickness: number = 6
 
 export function applyEdgeStyle(graph: DefaultGraph) {
+  console.log(graph.ports.size)
   for (const edge of graph.edges.toList()) {
     const node = edge.sourceNode
     const likedNode = edge.targetNode
@@ -18,8 +19,10 @@ export function applyEdgeStyle(graph: DefaultGraph) {
       targetArrow: edge.tag === BIDIRECTIONAL ? new Arrow({ fill: 'green', scale: 2, type: 'default' }) : undefined
     }
     createPortEdge(graph, node, likedNode, new PolylineEdgeStyle(polyOptions))
+    console.log(graph.ports.size)
     graph.remove(edge)
   }
+  console.log(graph.ports.size)
 }
 
 function calculateSimilarity(sourceNode: INode, targetNode: INode) {

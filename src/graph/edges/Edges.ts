@@ -1,4 +1,4 @@
-import { DefaultGraph, INode, PolylineEdgeStyle } from 'yfiles'
+import { DefaultGraph, FreeNodePortLocationModel, INode, PolylineEdgeStyle } from 'yfiles'
 import { Game } from '../../types/Game'
 
 export function createEdges(graph: DefaultGraph, nodes: Map<number, INode>) {
@@ -14,6 +14,15 @@ export function createEdges(graph: DefaultGraph, nodes: Map<number, INode>) {
 }
 
 export function createPortEdge(graph: DefaultGraph, source: INode, target: INode, style: PolylineEdgeStyle) {
-  //graph.createEdge(source.ports.get(0), target.ports.get(0), style)
-  graph.createEdge(source, target, style)
+  // Not working, but goes in the right direction
+  const sPort = graph.addPort({
+    owner: source,
+    locationParameter:  FreeNodePortLocationModel.NODE_BOTTOM_LEFT_ANCHORED //new FreeNodePortLocationModel().createParameterForRatios(Point.from([0, 0]), Point.from([0, 0]))
+  })
+  const tPort = graph.addPort({
+    owner: target,
+    locationParameter:  FreeNodePortLocationModel.NODE_BOTTOM_LEFT_ANCHORED //new FreeNodePortLocationModel().createParameterForRatios(Point.from([0, 0]), Point.from([0, 0]))
+  })
+  graph.createEdge(sPort, tPort, style)
+  //graph.createEdge(source, target, style)
 }

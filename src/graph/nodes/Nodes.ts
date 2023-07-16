@@ -186,12 +186,6 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
     const gameNodeStyleSVG = new StringTemplateNodeStyle(housing + people + windows + `</g>`)
     const gameNode = graph.createNode(null, gameShape, gameNodeStyleSVG, game)
 
-    // Not working, but goes in the right direction
-    /*graph.addPort({
-      owner: gameNode,
-      locationParameter: new FreeNodePortLocationModel().createParameterForRatios(Point.from([1000, 1000]), Point.from([1000, 1000]))
-    })*/
-
     const nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
       wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
       font: new Font('Tahoma', 8, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
