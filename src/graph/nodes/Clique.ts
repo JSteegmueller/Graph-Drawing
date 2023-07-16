@@ -11,16 +11,25 @@ export function findCliques(graph: DefaultGraph) {
   const result = algorithm.run(graph)
   const cliqueNodeMap: Map<Number, INode> = new Map<Number, INode>()
 
-  let cliqueID = 0
+  const cliques: Array<Array<INode>> = []
   for (const clique of result.cliques) {
+    cliques.push(clique.nodes.toList().toArray())
+  }
+  const doubleCliques: Array<Array<INode>> = getDoubleCliques(graph, cliques)
+  for (const clique of doubleCliques) {
+    cliques.push(clique)
+  }
+
+  let cliqueID = 0
+  for (const clique of cliques) {
     const catCounter = new Map<string, number>()
     const mechCounter = new Map<string, number>()
     console.log('-----------------------------------')
-    console.log(`CliqueId: ${cliqueID}, ${clique.nodes.size}`)
+    console.log(`CliqueId: ${cliqueID}, ${clique.length}`)
     cliqueID++
     const cliqueNode = graph.createGroupNode()
     cliqueNodeMap.set(cliqueID, cliqueNode)
-    for (const node of clique.nodes) {
+    for (const node of clique) {
       graph.setParent(node, cliqueNode)
       const game = (node.tag as Game)
       game.types.categories.map(cat => catCounter.set(cat.name, (catCounter.get(cat.name) ?? 0) + 1))
@@ -28,10 +37,10 @@ export function findCliques(graph: DefaultGraph) {
       game.clique = cliqueID
     }
     catCounter.forEach((value, key) => {
-      if (value < clique.nodes.size / 2) catCounter.delete(key)
+      if (value <= clique.length / 2) catCounter.delete(key)
     })
     mechCounter.forEach((value, key) => {
-      if (value < clique.nodes.size / 2) mechCounter.delete(key)
+      if (value <= clique.length / 2) mechCounter.delete(key)
     })
     console.log(catCounter)
     console.log(mechCounter)
@@ -106,4 +115,24 @@ function removeDuplicateEdges(graph: DefaultGraph) {
   for (const edge of edgeRemoveList) {
     graph.remove(edge)
   }
+}
+
+function getDoubleCliques(graph: DefaultGraph, cliques: Array<Array<INode>>): Array<Array<INode>> {
+  const doubleCliques: Array<Array<INode>> = []
+  let flatCliques: Array<INode> = []
+  for (const clique of cliques) {
+    flatCliques = flatCliques.concat(clique)
+  }
+
+  for (const edge of graph.edges) {
+    if (!edge.sourceNode || !edge.targetNode) continue
+    if (flatCliques.indexOf(edge.sourceNode) > -1) continue
+    if (flatCliques.indexOf(edge.targetNode) > -1) continue
+    if (edge.tag === BIDIRECTIONAL) {
+      flatCliques.push(edge.sourceNode)
+      flatCliques.push(edge.targetNode)
+      doubleCliques.push([edge.sourceNode, edge.targetNode])
+    }
+  }
+  return doubleCliques
 }
