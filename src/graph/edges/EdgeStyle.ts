@@ -2,7 +2,7 @@ import { Arrow, DefaultGraph, INode, PolylineEdgeStyle } from 'yfiles'
 import { Game } from '../../types/Game'
 import { BIDIRECTIONAL } from './Bidirectional'
 
-const maxEdgeThickness: number = 6
+const maxEdgeThickness: number = 10
 
 export function applyEdgeStyle(graph: DefaultGraph) {
   console.log(graph.ports.size)
@@ -14,10 +14,14 @@ export function applyEdgeStyle(graph: DefaultGraph) {
     const thickness: number = Math.ceil((1 / similarity) * maxEdgeThickness)
     const polyOptions = {
       stroke: thickness.toString() + 'px solid green',
-      sourceArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' }),
-      targetArrow: edge.tag === BIDIRECTIONAL ? new Arrow({ fill: 'green', scale: 2, type: 'default' }) : undefined
+      targetArrow: new Arrow({ fill: 'green', scale: thickness / 2, type: 'default' }),
+      sourceArrow: edge.tag === BIDIRECTIONAL ? new Arrow({
+        fill: 'green',
+        scale: thickness / 2,
+        type: 'default'
+      }) : undefined
     }
-    graph.createEdge(node, likedNode, new PolylineEdgeStyle(polyOptions))
+    graph.createEdge(node, likedNode, new PolylineEdgeStyle(polyOptions), edge.tag)
     graph.remove(edge)
   }
 }
