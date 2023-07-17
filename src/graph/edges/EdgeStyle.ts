@@ -1,7 +1,6 @@
 import { Arrow, DefaultGraph, INode, PolylineEdgeStyle } from 'yfiles'
 import { Game } from '../../types/Game'
 import { BIDIRECTIONAL } from './Bidirectional'
-import { createPortEdge } from './Edges'
 
 const maxEdgeThickness: number = 6
 
@@ -18,11 +17,9 @@ export function applyEdgeStyle(graph: DefaultGraph) {
       sourceArrow: new Arrow({ fill: 'green', scale: 2, type: 'default' }),
       targetArrow: edge.tag === BIDIRECTIONAL ? new Arrow({ fill: 'green', scale: 2, type: 'default' }) : undefined
     }
-    createPortEdge(graph, node, likedNode, new PolylineEdgeStyle(polyOptions))
-    console.log(graph.ports.size)
+    graph.createEdge(node, likedNode, new PolylineEdgeStyle(polyOptions))
     graph.remove(edge)
   }
-  console.log(graph.ports.size)
 }
 
 function calculateSimilarity(sourceNode: INode, targetNode: INode) {
