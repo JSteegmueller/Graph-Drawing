@@ -11,12 +11,16 @@ export function applyEdgeStyle(graph: DefaultGraph) {
     const likedNode = edge.targetNode
     if (!node || !likedNode) continue
     const similarity: number = calculateSimilarity(node, likedNode)
-    const thickness: number = Math.ceil((1 / similarity) * maxEdgeThickness)
+    const thickness: number = Math.max(Math.ceil((1 / similarity) * maxEdgeThickness), 4)
     const polyOptions = {
-      stroke: thickness.toString() + 'px solid green',
-      targetArrow: new Arrow({ fill: 'green', scale: thickness / 2, type: 'default' }),
+      stroke: edge.tag === BIDIRECTIONAL ? thickness.toString() + 'px dashed blue' : thickness.toString() + 'px dashed green',
+      targetArrow: new Arrow({
+        fill: edge.tag === BIDIRECTIONAL ? 'blue' : 'green',
+        scale: thickness / 2,
+        type: 'default'
+      }),
       sourceArrow: edge.tag === BIDIRECTIONAL ? new Arrow({
-        fill: 'green',
+        fill: 'blue',
         scale: thickness / 2,
         type: 'default'
       }) : undefined

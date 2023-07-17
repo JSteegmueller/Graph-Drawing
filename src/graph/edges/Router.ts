@@ -7,10 +7,10 @@ export function applyEdgeRouting(graph: DefaultGraph) {
   router.polylineRouting = true
   for (const edge of graph.edges) console.log(edge.tag)
   const layoutData = new EdgeRouterData({
-    sourcePortConstraints: edge => edge.tag === BIDIRECTIONAL ? PortConstraint.create(PortSide.SOUTH) : PortConstraint.create(PortSide.EAST),
-    targetPortConstraints: edge => edge.tag === BIDIRECTIONAL ? PortConstraint.create(PortSide.SOUTH) : PortConstraint.create(PortSide.SOUTH),
+    sourcePortConstraints: edge => edge.tag === BIDIRECTIONAL ? PortConstraint.create(PortSide.WEST) : PortConstraint.create(PortSide.EAST),
+    targetPortConstraints: edge => edge.tag === BIDIRECTIONAL ? PortConstraint.create(PortSide.WEST) : PortConstraint.create(PortSide.EAST),
     sourceGroupIds: (edge: IEdge) => `${edge.sourceNode}${edge.tag === BIDIRECTIONAL ? 'a' : 'b'}`,
-    targetGroupIds: (edge: IEdge) => `${edge.targetNode}${edge.tag === BIDIRECTIONAL ? 'a' : 'a'}`
+    targetGroupIds: (edge: IEdge) => `${edge.targetNode}${edge.tag === BIDIRECTIONAL ? 'a' : 'c'}`
   })
   router.minimumNodeToEdgeDistance = 200
 
