@@ -231,7 +231,7 @@ export function getNodeStyle(game: Game, amountOfGames: number) {
   let gameNodeStyleSVG
   let nodeLabelStyle
   if (game.rank <= rank_limit) {
-    gameNodeStyleSVG = new StringTemplateNodeStyle(housing + people + windows + `</g>`)
+    gameNodeStyleSVG = (housing + people + windows + `</g>`)
 
     nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
       wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
@@ -254,7 +254,7 @@ export function getNodeStyle(game: Game, amountOfGames: number) {
       // insets: [10, 0, 80, 10]
     })
   } else {
-    gameNodeStyleSVG = new StringTemplateNodeStyle(hut + `</g>`)
+    gameNodeStyleSVG =  (hut + `</g>`)
 
     nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
       wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
@@ -276,7 +276,8 @@ export function getNodeStyle(game: Game, amountOfGames: number) {
       // insets: [10, 0, 80, 10]
     })
   }
-  return { gameNodeStyleSVG, nodeLabelStyle }
+  let gameNodeStyleSVGStringTemplate = new StringTemplateNodeStyle(gameNodeStyleSVG)
+  return { gameNodeStyleSVGStringTemplate, nodeLabelStyle, gameNodeStyleSVG }
 }
 
 function colorToString(color: Color) {
