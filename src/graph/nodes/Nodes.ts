@@ -9,9 +9,9 @@ export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INo
   const amountOfGames = games.length
 
   for (const game of games) {
-    let { gameNodeStyleSVG, nodeLabelStyle } = getNodeStyle(game, amountOfGames)
+    let { gameNodeStyleSVGStringTemplate, nodeLabelStyle, gameNodeStyleSVG } = getNodeStyle(game, amountOfGames)
 
-    const gameNode = graph.createNode(null, gameShape, gameNodeStyleSVG, game)
+    const gameNode = graph.createNode(null, gameShape, gameNodeStyleSVGStringTemplate, game)
 
     const labelModel = new InteriorStretchLabelModel({ insets: 50 }) // STRETCHES LABEL INTO SPACE WITH *insets* PADDING
     //const labelParameter = labelModel.createParameter(InteriorStretchLabelModelPosition.CENTER)

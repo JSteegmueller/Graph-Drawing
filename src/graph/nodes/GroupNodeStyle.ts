@@ -1,19 +1,34 @@
-import { DefaultGraph, IListEnumerable, INode, StringTemplateNodeStyle } from 'yfiles'
+import { DefaultGraph, IListEnumerable, INode,  StringTemplateNodeStyle } from 'yfiles'
+import { Game } from '../../types/Game'
+import { getNodeStyle } from './NodeStyle'
 
 export function applyGroupNodeStyle(graph: DefaultGraph) {
   let i = 0;
   for (const node of graph.nodes) {
     if (graph.isGroupNode(node)) {
-      let nodes = Array.from(graph.getChildren(node));
-      let individualNodes = nodes.filter(n => !graph.isGroupNode(n));
-
       let groupNodeStyleSVG = new StringTemplateNodeStyle(islands[i]);
       i += 1;
-
       graph.setStyle(node, groupNodeStyleSVG);
+    }
+    else if(graph.getParent(node) == null){
+      const game = node.tag as Game
+      let currNodeStyle = getNodeStyle(game, 40)
+
+      // width="459.000000pt" height="412.000000pt"
+      let updatedNodeStyle = `<svg xmlns="http://www.w3.org/2000/svg">`
+      + island_single + currNodeStyle.gameNodeStyleSVG + currNodeStyle.nodeLabelStyle 
+      + `</svg>`
+
+      graph.setStyle(node, new StringTemplateNodeStyle(updatedNodeStyle))
     }
   }
 }
+
+let island_single = `<svg xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" />
+</svg>`
+
+
 
 // oben rechts 
 let island0 = '<svg xmlns="http://www.w3.org/2000/svg"\n' +
