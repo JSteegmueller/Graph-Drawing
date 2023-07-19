@@ -96,7 +96,7 @@ export default class ReactGraphComponent extends Component {
         scale: 1,
         encodeImagesBase64: true,
         inlineSvgImages: true,
-        background: 'transparent'
+        background: '#a8d4e4'
       })
       const svg = await exporter.exportSvgAsync(this.graphComponent)
       await FileSaveSupport.save(SvgExport.exportSvgString(svg), 'graph.svg')
