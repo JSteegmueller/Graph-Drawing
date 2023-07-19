@@ -28,11 +28,12 @@
 
 import 'yfiles/yfiles.css'
 import React, { Component } from 'react'
-import { GraphComponent, GraphViewerInputMode, HierarchicNestingPolicy, ICommand } from 'yfiles'
+import { GraphComponent, GraphViewerInputMode, HierarchicNestingPolicy, ICommand, SvgExport } from 'yfiles'
 import '../lib/yFilesLicense'
 import loadGraph from '../graph/loadGraph'
 import { eventBus } from '../lib/EventBus'
 import UserInputDialog from './UserInputDialog'
+import FileSaveSupport from '../FileSaveSupport'
 
 export default class ReactGraphComponent extends Component {
   private readonly div: React.RefObject<HTMLDivElement>
@@ -87,6 +88,18 @@ export default class ReactGraphComponent extends Component {
     })
     eventBus.subscribe('zoom-fit', () => {
       ICommand.FIT_GRAPH_BOUNDS.execute(null, this.graphComponent)
+    })
+    eventBus.subscribe('export', async () => {
+      const exporter = new SvgExport({
+        // determine the bounds of the exported area
+        worldBounds: this.graphComponent.contentRect,
+        scale: 1,
+        encodeImagesBase64: true,
+        inlineSvgImages: true,
+        background: 'transparent'
+      })
+      const svg = await exporter.exportSvgAsync(this.graphComponent)
+      await FileSaveSupport.save(SvgExport.exportSvgString(svg), 'graph.svg')
     })
   }
 }

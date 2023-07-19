@@ -20,7 +20,7 @@ export function applyEdgeStyle(graph: DefaultGraph) {
         type: 'short'
       }),
       sourceArrow: edge.tag === BIDIRECTIONAL ? new Arrow({
-        fill: 'blue',
+        fill: '#236671',
         scale: thickness / 2,
         type: 'short'
       }) : undefined
