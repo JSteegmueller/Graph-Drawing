@@ -8,9 +8,9 @@ export function applyEdgeRouting(graph: DefaultGraph) {
   for (const edge of graph.edges) console.log(edge.tag)
   const layoutData = new EdgeRouterData({
     sourcePortConstraints: edge => edge.tag === BIDIRECTIONAL ? PortConstraint.create(PortSide.WEST) : PortConstraint.create(PortSide.EAST),
-    targetPortConstraints: edge => edge.tag === BIDIRECTIONAL ? PortConstraint.create(PortSide.WEST) : PortConstraint.create(PortSide.EAST),
+    targetPortConstraints: edge => edge.tag === BIDIRECTIONAL ? PortConstraint.create(PortSide.EAST) : PortConstraint.create(PortSide.EAST),
     sourceGroupIds: (edge: IEdge) => `${edge.sourceNode}${edge.tag === BIDIRECTIONAL ? 'a' : 'b'}`,
-    targetGroupIds: (edge: IEdge) => `${edge.targetNode}${edge.tag === BIDIRECTIONAL ? 'a' : 'c'}`
+    targetGroupIds: (edge: IEdge) => `${edge.targetNode}${edge.tag === BIDIRECTIONAL ? 'b' : 'c'}`
   })
   router.minimumNodeToEdgeDistance = 200
 
