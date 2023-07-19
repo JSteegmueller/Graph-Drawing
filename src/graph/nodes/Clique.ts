@@ -1,6 +1,7 @@
 import { CliqueSubstructures, DefaultGraph, IEdge, INode } from 'yfiles'
 import { Game, newGame } from '../../types/Game'
 import { BIDIRECTIONAL } from '../edges/Bidirectional'
+import { getGroupNodeStyle } from './GroupNodeStyle'
 
 export function findCliques(graph: DefaultGraph) {
   const algorithm = new CliqueSubstructures({
