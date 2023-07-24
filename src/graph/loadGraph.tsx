@@ -39,6 +39,7 @@ import { mergeBidirectional } from './edges/Bidirectional'
 import { applyEdgeStyle } from './edges/EdgeStyle'
 import { applyGroupNodeStyle } from './nodes/GroupNodeStyle'
 import { applyEdgeBundling } from './edges/EdgeBundling'
+import { applyEdgeRouting } from './edges/Router'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -74,9 +75,8 @@ export default async function loadGraph() {
   applyEdgeStyle(graph)
   console.log('Graph: Edges styled')
 
-
-  //applyEdgeRouting(graph)
-  applyEdgeBundling(graph)
+  applyEdgeRouting(graph)
+  //applyEdgeBundling(graph)
   console.log('Graph: Edges routed')
 
   console.log('Graph: completed')
