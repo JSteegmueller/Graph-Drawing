@@ -1,4 +1,14 @@
-import { DefaultGraph, EdgeRouter, EdgeRouterData, IEdge, PortConstraint, PortSide } from 'yfiles'
+import {
+  CurveConnectionStyle,
+  DefaultGraph,
+  EdgeRouter,
+  EdgeRouterData,
+  EdgeRouterEdgeRoutingStyle,
+  IEdge,
+  PortConstraint,
+  PortSide,
+  RoutingPolicy
+} from 'yfiles'
 import { BIDIRECTIONAL } from './Bidirectional'
 
 export function applyEdgeRouting(graph: DefaultGraph) {
@@ -12,7 +22,17 @@ export function applyEdgeRouting(graph: DefaultGraph) {
     sourceGroupIds: (edge: IEdge) => `${edge.sourceNode}${edge.tag === BIDIRECTIONAL ? 'a' : 'b'}`,
     targetGroupIds: (edge: IEdge) => `${edge.targetNode}${edge.tag === BIDIRECTIONAL ? 'b' : 'c'}`
   })
-  router.minimumNodeToEdgeDistance = 200
+
+  router.minimumNodeToEdgeDistance = 100
+  router.defaultEdgeLayoutDescriptor.minimumEdgeToEdgeDistance = 20
+  router.defaultEdgeLayoutDescriptor.routingPolicy = RoutingPolicy.ALWAYS
+  router.defaultEdgeLayoutDescriptor.routingStyle = EdgeRouterEdgeRoutingStyle.CURVED
+  router.defaultEdgeLayoutDescriptor.curveShortcuts = true
+  //relative curvature of 180° curves (0..1)
+  router.defaultEdgeLayoutDescriptor.curveUTurnSymmetry = 0
+
+  router.defaultEdgeLayoutDescriptor.sourceCurveConnectionStyle = CurveConnectionStyle.ORGANIC
+  router.defaultEdgeLayoutDescriptor.targetCurveConnectionStyle = CurveConnectionStyle.ORGANIC
 
   graph.applyLayout(router, layoutData)
 }
