@@ -31,8 +31,8 @@ export function applyEdgeRouting(graph: DefaultGraph) {
   //relative curvature of 180° curves (0..1)
   router.defaultEdgeLayoutDescriptor.curveUTurnSymmetry = 0
 
-  router.defaultEdgeLayoutDescriptor.sourceCurveConnectionStyle = CurveConnectionStyle.ORGANIC
-  router.defaultEdgeLayoutDescriptor.targetCurveConnectionStyle = CurveConnectionStyle.ORGANIC
+  router.defaultEdgeLayoutDescriptor.sourceCurveConnectionStyle = CurveConnectionStyle.KEEP_PORT
+  router.defaultEdgeLayoutDescriptor.targetCurveConnectionStyle = CurveConnectionStyle.KEEP_PORT
 
-  graph.applyLayout(router, layoutData)
+  graph.applyLayout(router, null)
 }
