@@ -5,9 +5,9 @@ export default function getOrganicLayout(): ILayoutAlgorithm {
   layout.considerNodeSizes = true
   layout.minimumNodeDistance = 0
   layout.deterministic = true
-  layout.preferredMinimumNodeToEdgeDistance = 200
+  layout.preferredMinimumNodeToEdgeDistance = 170
   layout.nodeEdgeOverlapAvoided = true
-  layout.preferredEdgeLength = 500
-  layout.compactnessFactor = 0.7
+  layout.preferredEdgeLength = 450
+  layout.compactnessFactor = 0.9
   return layout
 }
