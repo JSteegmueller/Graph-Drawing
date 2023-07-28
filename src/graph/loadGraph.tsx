@@ -40,6 +40,7 @@ import { applyEdgeStyle } from './edges/EdgeStyle'
 import { applyGroupNodeStyle } from './nodes/GroupNodeStyle'
 import { applyEdgeBundling } from './edges/EdgeBundling'
 import { applyEdgeRouting } from './edges/Router'
+import { findUsedCategories } from './nodes/FindUsedCategories'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -78,6 +79,9 @@ export default async function loadGraph() {
   applyEdgeRouting(graph)
   //applyEdgeBundling(graph)
   console.log('Graph: Edges routed')
+
+  findUsedCategories(graph)
+  console.log('Graph: CategoriesPrinted')
 
   console.log('Graph: completed')
   return graph
