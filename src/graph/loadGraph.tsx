@@ -26,7 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph } from 'yfiles'
+import { DefaultGraph, NodeStylePortStyleAdapter, ShapeNodeStyle } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
@@ -38,7 +38,6 @@ import { findCliques } from './nodes/Clique'
 import { mergeBidirectional } from './edges/Bidirectional'
 import { applyEdgeStyle } from './edges/EdgeStyle'
 import { applyGroupNodeStyle } from './nodes/GroupNodeStyle'
-import { applyEdgeBundling } from './edges/EdgeBundling'
 import { applyEdgeRouting } from './edges/Router'
 import { findUsedCategories } from './nodes/FindUsedCategories'
 
@@ -48,7 +47,13 @@ const top100: Game[] = uTop100
 
 export default async function loadGraph() {
   const graph = new DefaultGraph()
-
+  graph.nodeDefaults.ports.style = new NodeStylePortStyleAdapter(
+    new ShapeNodeStyle({
+      fill: 'darkblue',
+      stroke: 'cornflowerblue',
+      shape: 'ellipse'
+    })
+  )
   const nodes = createNodes(graph, top40)
   console.log('Graph: Nodes loaded')
 
