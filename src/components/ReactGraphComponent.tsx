@@ -31,12 +31,9 @@ import React, { Component } from 'react'
 import {
   GraphComponent,
   GraphEditorInputMode,
-  GraphSnapContext,
   GraphViewerInputMode,
   HierarchicNestingPolicy,
   ICommand,
-  LabelSnapContext,
-  OrthogonalEdgeEditingContext,
   SvgExport
 } from 'yfiles'
 import '../lib/yFilesLicense'
@@ -70,12 +67,7 @@ export default class ReactGraphComponent extends Component {
     graphModelManager.hierarchicNestingPolicy = HierarchicNestingPolicy.GROUP_NODES
     this.graphComponent.graph = await loadGraph()
     this.graphComponent.graph.undoEngineEnabled = true
-    this.graphComponent.inputMode = new GraphEditorInputMode({
-      allowGroupingOperations: true,
-      snapContext: new GraphSnapContext(),
-      labelSnapContext: new LabelSnapContext(),
-      orthogonalEdgeEditingContext: new OrthogonalEdgeEditingContext({ enabled: false })
-    })
+    this.graphComponent.inputMode = new GraphEditorInputMode()
     // center the newly created graph
     this.graphComponent.fitGraphBounds()
   }

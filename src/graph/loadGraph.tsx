@@ -40,6 +40,7 @@ import { applyEdgeStyle } from './edges/EdgeStyle'
 import { applyGroupNodeStyle } from './nodes/GroupNodeStyle'
 import { applyEdgeRouting } from './edges/Router'
 import { findUsedCategories } from './nodes/FindUsedCategories'
+import GreenEdgePortCandidateProvider from './PortCandidatProvider'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -47,6 +48,9 @@ const top100: Game[] = uTop100
 
 export default async function loadGraph() {
   const graph = new DefaultGraph()
+  const edgeDecorator = graph.decorator.edgeDecorator
+  edgeDecorator.edgeReconnectionPortCandidateProviderDecorator.setFactory(edge =>
+    new GreenEdgePortCandidateProvider())
   graph.nodeDefaults.ports.style = new NodeStylePortStyleAdapter(
     new ShapeNodeStyle({
       fill: 'darkblue',
@@ -89,5 +93,6 @@ export default async function loadGraph() {
   console.log('Graph: CategoriesPrinted')
 
   console.log('Graph: completed')
+
   return graph
 }
