@@ -1,4 +1,4 @@
-import { DefaultGraph, StringTemplateNodeStyle } from 'yfiles'
+import { DefaultGraph, GeneralPath, StringTemplateNodeStyle } from 'yfiles'
 import { Game } from '../../types/Game'
 import { getNodeStyle } from './NodeStyle'
 
@@ -6,9 +6,11 @@ export function applyGroupNodeStyle(graph: DefaultGraph) {
   let i = 0
   for (const node of graph.nodes) {
     if (graph.isGroupNode(node)) {
-      //let groupNodeStyleSVG = new StringTemplateNodeStyle(islands[i])
+      let groupNodeStyleSVG = new StringTemplateNodeStyle(islands[i])
       i += 1
-      //graph.setStyle(node, groupNodeStyleSVG)
+      groupNodeStyleSVG.normalizedOutline = new GeneralPath()
+      graph.setStyle(node, groupNodeStyleSVG)
+      //graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y, 20, 20))
     } else if (graph.getParent(node) == null) {
       const game = node.tag as Game
       let currNodeStyle = getNodeStyle(game, 40)
