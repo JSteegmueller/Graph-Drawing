@@ -13,8 +13,7 @@ import { Game } from '../../types/Game'
 import getColorForCategory from '../helper/getColorForCategory'
 
 
-export function getNodeStyle(game: Game, amountOfGames: number) {
-  const rank_limit = 40
+export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: number) {
 
   const house_color_bright = '#FEFAE0'
   const house_color_dark = '#E1CDAC'
