@@ -34,7 +34,7 @@ export function applyGroupNodeStyle(graph: DefaultGraph, showCliqueId: boolean =
       }
     } else if (graph.getParent(node) == null) {
       const game = node.tag as Game
-      let currNodeStyle = getNodeStyle(game, 40)
+      let currNodeStyle = getNodeStyle(game, 40, 40)
 
       // width="459.000000pt" height="412.000000pt"
       let updatedNodeStyle = `<svg xmlns='http://www.w3.org/2000/svg'>

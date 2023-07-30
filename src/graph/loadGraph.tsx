@@ -26,7 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph, NodeStylePortStyleAdapter, ShapeNodeStyle } from 'yfiles'
+import { DefaultGraph, ShapeNodeStyle } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
@@ -51,13 +51,7 @@ export default async function loadGraph() {
   const edgeDecorator = graph.decorator.edgeDecorator
   edgeDecorator.edgeReconnectionPortCandidateProviderDecorator.setFactory(edge =>
     new GreenEdgePortCandidateProvider())
-  graph.nodeDefaults.ports.style = new NodeStylePortStyleAdapter(
-    new ShapeNodeStyle({
-      fill: 'darkblue',
-      stroke: 'cornflowerblue',
-      shape: 'ellipse'
-    })
-  )
+  graph.nodeDefaults.style = new ShapeNodeStyle({ fill: 'transparent', stroke: 'transparent' })
   const nodes = createNodes(graph, top40)
   console.log('Graph: Nodes loaded')
 
@@ -93,6 +87,5 @@ export default async function loadGraph() {
   console.log('Graph: CategoriesPrinted')
 
   console.log('Graph: completed')
-
   return graph
 }
