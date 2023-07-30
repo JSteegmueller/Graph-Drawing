@@ -1,6 +1,5 @@
 import { DefaultGraph, DefaultLabelStyle, ImageNodeStyle, Rect, StringTemplateNodeStyle } from 'yfiles'
 import { Game } from '../../types/Game'
-import createGeneralPathFromSvgPathData from '../../PathToPath'
 import { getNodeStyle } from './NodeStyle'
 
 export function applyGroupNodeStyle(graph: DefaultGraph, showCliqueId: boolean = false) {
@@ -10,19 +9,15 @@ export function applyGroupNodeStyle(graph: DefaultGraph, showCliqueId: boolean =
       let style = new ImageNodeStyle({
         image: `${process.env.PUBLIC_URL}/island-${id + 1}.svg`
       })
-      const parser = new DOMParser()
-      const xmlDoc = parser.parseFromString(islands[id], 'text/xml')
-
-      const pathElement = xmlDoc.querySelector('path')
-      const svgPathData = pathElement!.getAttribute('d')
-
-      style.normalizedOutline = createGeneralPathFromSvgPathData(svgPathData!)
       graph.setStyle(node, style)
       if (id === 6) {
         graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y,
           node.layout.width, node.layout.height + 150))
       }
-
+      if (id === 9) {
+        graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y,
+          node.layout.width + 80, node.layout.height + 150))
+      }
       if (showCliqueId) {
         graph.addLabel(node, id.toString(), null, new DefaultLabelStyle({
           backgroundStroke: 'darkslategray',
