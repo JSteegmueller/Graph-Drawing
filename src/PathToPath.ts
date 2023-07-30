@@ -24,7 +24,7 @@ export default function createGeneralPathFromSvgPathData(pathData: string) {
         break
       case 'C':
         for (let i = 0; i < params.length; i = i + 2) {
-          generalPath.lineTo(params[i] - startx, params[i + 1] - starty)
+          generalPath.lineTo((startx - params[i]), (starty - params[i + 1]))
         }
         break
       case 'Z':

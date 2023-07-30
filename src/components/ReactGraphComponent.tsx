@@ -67,7 +67,7 @@ export default class ReactGraphComponent extends Component {
     graphModelManager.hierarchicNestingPolicy = HierarchicNestingPolicy.GROUP_NODES
     this.graphComponent.graph = await loadGraph()
     this.graphComponent.graph.undoEngineEnabled = true
-    this.graphComponent.inputMode = new GraphEditorInputMode()
+    this.graphComponent.inputMode = new GraphEditorInputMode({ allowCreateNode: false, allowCreateEdge: false })
     // center the newly created graph
     this.graphComponent.fitGraphBounds()
   }
