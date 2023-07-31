@@ -10,11 +10,11 @@ export function applyGroupNodeStyle(graph: DefaultGraph, showCliqueId: boolean =
         image: `${process.env.PUBLIC_URL}/island-${id + 1}.svg`
       })
       graph.setStyle(node, style)
-      if (id === 6) {
+      if (id === 6 && false) {
         graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y,
           node.layout.width, node.layout.height + 150))
       }
-      if (id === 9) {
+      if (id === 9 && false) {
         graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y,
           node.layout.width + 80, node.layout.height + 150))
       }
