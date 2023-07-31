@@ -1,21 +1,6 @@
 import { ArrowEdgeStyle, DefaultGraph, IListEnumerable, INode, StringTemplateNodeStyle } from 'yfiles'
 import { Designer, Types, Game } from '../../types/Game'
 
-
-function filterInPlace(arr : Designer[], id_to_filter : number)
-{
-    let i = 0, j = 0;
-    while (i < arr.length)
-    {
-      const val = arr[i];
-      if (val.id !== id_to_filter) arr[j++] = val;
-      i++;
-    }
-  
-    arr.length = j;
-    return arr;
-}
-
 export function preprocessNodeCategories(games: Game[], rank_limit: number)
 {
     for (const game of games)
@@ -158,107 +143,107 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
                 
                 // Murder / Mystery
                 case 1040:
-                    filterInPlace(game.types.categories ,1040)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1040)
                     break;
 
                 // Pirates
                 case 1090:
-                    filterInPlace(game.types.categories ,1090)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1090)
                     break;
                 
                 // Post Napoleonic
                 case 2710:
-                    filterInPlace(game.types.categories ,2710)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 2710)
                     break;
 
                 // Arabian
                 case 1052:
-                    filterInPlace(game.types.categories ,1052)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1052)
                     break;
 
                 // Renaissance
                 case 1070:
-                    filterInPlace(game.types.categories ,1070)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1070)
                     break;
 
                 // Prehistoric
                 case 1036:
-                    filterInPlace(game.types.categories ,1036)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1036)
                     break;
             
                 // Negotiation
                 case 1026:
-                    filterInPlace(game.types.categories ,1026)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1026)
                     break;
 
                 // Political
                 case 1001:
-                    filterInPlace(game.types.categories ,1001)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1001)
                     break;
 
                 // Abstract Strategy
                 case 1009:
-                    filterInPlace(game.types.categories ,1009)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1009)
                     break;
                 
                 // Travel
                 case 1097:
-                    filterInPlace(game.types.categories ,1097)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1097)
                     break;
 
                 // Nautrical
                 case 1008:
-                    filterInPlace(game.types.categories ,1008)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1008)
                     break;
                 
                 // Action / Dexterity
                 case 1032:
-                    filterInPlace(game.types.categories ,1032)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1032)
                     break;
                 
                 // Collectible Components
                 case 1044:
-                    filterInPlace(game.types.categories ,1044)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1044)
                     break;
                 
                 // Puzzle
                 case 1028:
-                    filterInPlace(game.types.categories ,1028)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1028)
                     break;
 
                 // Bluffing
                 case 1023:
-                    filterInPlace(game.types.categories ,1023)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1023)
                     break;
                 
                 // Deduction
                 case 1039:
-                    filterInPlace(game.types.categories ,1039)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1039)
                     break;
 
                 // Reilgious
                 case 1115:
-                    filterInPlace(game.types.categories ,1115)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1115)
                     break;
 
                 // Spies / Secret Agent
                 case 1081:
-                    filterInPlace(game.types.categories ,1081)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1081)
                     break;
 
                 // Mature / Adult
                 case 1118:
-                    filterInPlace(game.types.categories ,1118)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1118)
                     break;
                 
                 // Video Game Theme
                 case 1101:
-                    filterInPlace(game.types.categories ,1101)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1101)
                     break;
 
                 // Miniatures
                 case 1047:
-                    filterInPlace(game.types.categories ,1047)
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1047)
                     break;
 
                 // default case, shouldnt be reached.
@@ -266,6 +251,40 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
                     console.log("default case reached")
                     break;
             }
+        }
+    }
+    for (const game of games)
+    {
+        if(game.rank > rank_limit)
+        {
+            continue;
+        }
+        for (const game_category of game.types.categories)
+        {
+            // search array up to self, drop self if found duplicate (this way first element is always kept
+            // -> dont need to update array after each iteration)
+            game.types.categories = game.types.categories.filter(function(item, pos, array)
+            {
+                let exists = false
+                let i = 0
+                while(i<=pos)
+                {
+                    const entry = array[i]
+                    if(item.id == entry.id)
+                    {
+                        if (exists == false)
+                        {
+                            exists = true
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    i++
+                }
+                return true;
+            })
         }
     }
 }
