@@ -4,9 +4,8 @@ import { getNodeStyle } from './NodeStyle'
 import { preprocessNodeCategories } from './NodeCategoryPreprocessor'
 
 
-export function createNodes(graph: DefaultGraph, games: Game[]): Map<number, INode> {
-
-  const rank_limit = 40
+export function createNodes(graph: DefaultGraph, games: Game[], rank_limit : number): Map<number, INode> {
+  
   let preprocessed_games = preprocessNodeCategories(games, rank_limit)
 
   const gameShape = new Rect(0, 0, 100, 100)
