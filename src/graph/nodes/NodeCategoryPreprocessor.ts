@@ -88,7 +88,7 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
                     game_category.id = new_category_id_pop_culture
                     game_category.name = new_category_name_pop_culture
                     break;
-
+                    
                 // Movie / TV / Radio Theme
                 case 1064:
                     game_category.id = new_category_id_pop_culture

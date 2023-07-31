@@ -47,6 +47,14 @@ export default class Toolbar extends Component {
     eventBus.dispatch('export')
   }
 
+  save() {
+    eventBus.dispatch('save')
+  }
+
+  open() {
+    eventBus.dispatch('open')
+  }
+
   render() {
     return (
       <div className='toolbar'>
@@ -69,6 +77,16 @@ export default class Toolbar extends Component {
           title='Export'
           className='demo-icon-yIconPrint'
           onClick={this.export}
+        />
+        <button
+          title='Save'
+          className='demo-icon-yIconSave'
+          onClick={this.save}
+        />
+        <button
+          title='Open'
+          className='demo-icon-yIconOpen'
+          onClick={this.open}
         />
       </div>
     )
