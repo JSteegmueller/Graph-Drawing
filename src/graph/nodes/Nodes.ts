@@ -7,11 +7,12 @@ import { preprocessNodeCategories } from './NodeCategoryPreprocessor'
 export function createNodes(graph: DefaultGraph, games: Game[], rank_limit : number): Map<number, INode> {
   
   preprocessNodeCategories(games, rank_limit)
+  preprocessNodeCategories(games, rank_limit)
 
   const gameShape = new Rect(0, 0, 100, 100)
   const nodeMap = new Map<number, INode>()
   const amountOfGames = games.length
-
+ 
   for (const game of games) {
     let {
       gameNodeStyleSVGStringTemplate,
@@ -27,7 +28,7 @@ export function createNodes(graph: DefaultGraph, games: Game[], rank_limit : num
     // graph.addLabel({ owner: node, text: 'A Label', preferredSize: new Size(100, 15) })
 
     // graph.addLabel(gameNode, game.title, centerParameter, nodeLabelStyle) // ADDS LABEL
-    graph.addLabel(gameNode, game.title, InteriorStretchLabelModel.CENTER, nodeLabelStyle)
+    // graph.addLabel(gameNode, game.title, InteriorStretchLabelModel.CENTER, nodeLabelStyle)
     nodeMap.set(game.id, gameNode)
   }
   return nodeMap

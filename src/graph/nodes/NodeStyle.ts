@@ -11,6 +11,7 @@ import {
 } from 'yfiles'
 import { Game } from '../../types/Game'
 import getColorForCategory from '../helper/getColorForCategory'
+import getIconForCategory from '../helper/getIconForCategory'
 
 
 export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: number) {
@@ -20,25 +21,9 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   const roof_color = '#BF0603'
   const dark_color = '#001427'
   const semi_dark_color = '#B19E7B'
-
+ 
   const amountOfCategories = game.types.categories.length
-  const categorieCircles = [
-    `<circle cx="0" cy="50" r="10"`,
-    `<circle cx="5" cy="28" r="10"`,
-    `<circle cx="20" cy="10" r="10"`,
-    `<circle cx="40" cy="0" r="10"`,
-    `<circle cx="65" cy="0" r="10"`,
-    `<circle cx="87" cy="10" r="10"`,
-    `<circle cx="101" cy="30" r="10"`,
-    `<circle cx="108" cy="50" r="10"`
-  ]
-
-  let circles = ``
-  for (let c = 0; c < amountOfCategories; c++) {
-    let colorOfCategory = colorToString(getColorForCategory(game.types.categories[c].id))
-    circles = circles + categorieCircles[c] + ` fill= ${colorOfCategory}/>`
-  }
-
+ 
   const categorieWindows = [
     `<g transform='translate(145,85) scale(0.3 0.4)'>
       <polygon points='100,125, 50,150 50,50 100,25 ' `,
@@ -60,6 +45,19 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       <polygon points='100,125, 50,150 50,50 100,25 '`
   ]
 
+  const icon_scale1 = 0.3
+  const icon_scale2 = 0.3
+
+  const categorieIcons = [ 
+    `<g transform='translate(160,110) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
+    `<g transform='translate(190,87) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
+    `<g transform='translate(160,150) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
+    `<g transform='translate(190,132) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
+    `<g transform='translate(160,190) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
+    `<g transform='translate(190,170) scale(`+icon_scale1+` `+icon_scale2+`)'>`
+  ]
+
+
   let windows = ``
   for (let c = 0; c < amountOfCategories; c++) {
     let colorOfCategory = colorToString(getColorForCategory(game.types.categories[c].id))
@@ -70,27 +68,12 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       </g>`
   }
 
-  // const amountPeople = [
-  //   `<g transform="translate(-10,210) scale(0.3 0.3)">`,
-  //   `<g transform="translate(11,210) scale(0.3 0.3)">`,
-  //   `<g transform="translate(32,210) scale(0.3 0.3)">`,
-  //   `<g transform="translate(53,210) scale(0.3 0.3)">`,
-  //   `<g transform="translate(74,210) scale(0.3 0.3)">`,
-  //   `<g transform="translate(95,210) scale(0.3 0.3)">`,
-  //   `<g transform="translate(116,210) scale(0.3 0.3)">`
-  // ]
+  let icons = ``
+  for (let c = 0; c < amountOfCategories; c++) {
+    let icon = getIconForCategory(game.types.categories[c].id)
+    icons = icons + categorieIcons[c] + icon+`</g>`
+  }
 
-  // const amountPeople = [
-  //   `<g transform="translate(-10,220) scale(0.3 0.3)">`,
-  //   `<g transform="translate(11,220) scale(0.3 0.3)">`,
-  //   `<g transform="translate(32,220) scale(0.3 0.3)">`,
-  //   `<g transform="translate(53,220) scale(0.3 0.3)">`,
-  //   `<g transform="translate(74,220) scale(0.3 0.3)">`,
-  //   `<g transform="translate(95,220) scale(0.3 0.3)">`,
-  //   `<g transform="translate(116,220) scale(0.3 0.3)">`
-  // ]
-
-  // power point guy:
   const amountPeople = [
     `<g transform='translate(-7 211) scale(0.4 0.4)'>`,
     `<g transform='translate(14 211) scale(0.4 0.4)'>`,
@@ -103,11 +86,6 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
 
   let people = ``
   for (let p = 0; p < game.minplayers; p++) {
-    // people = people + amountPeople[p]
-    // + `<path fill="`+dark_color+`" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
-    // v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
-    // <circle fill="`+dark_color+`" cx="62.55" cy="15.7" r="15.7"/>
-    // </g>`
 
     people = people + amountPeople[p]
       + `<g transform='translate(-1166 -158) scale(1 1)'>
@@ -116,11 +94,7 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       </g></g>`
   }
   for (let p = game.minplayers; p < game.maxplayers; p++) {
-    // people = people + amountPeople[p]
-    // + `<path fill="`+semi_dark_color+`" d="M52.65,125.2h19.9c3.3,0,6-2.7,6-6V86.301h3.399c3.301,0,6-2.701,6-6V43.2c0-3.3-2.699-6-6-6H43.25c-3.3,0-6,2.7-6,6
-    // v37.101c0,3.299,2.7,6,6,6h3.4V119.2C46.65,122.5,49.25,125.2,52.65,125.2z"/>
-    // <circle fill="`+semi_dark_color+`" cx="62.55" cy="15.7" r="15.7"/>
-    // </g>`
+
     people = people + amountPeople[p]
       + `<g transform='translate(-1166 -158) scale(1 1)'>
       <path fill='` + semi_dark_color + `' d='M1222 169C1222 173.418 1218.42 177 1214 177 1209.58 177 1206 173.418 1206 169 1206 164.582 1209.58 161 1214 161 1218.42 161 1222 164.582 1222 169Z'/>
@@ -128,91 +102,231 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       </g></g>`
   }
 
+  let clock_txt
+  let clock_y = 0
 
-  // loopup title length for every game
-  for (let g = 0; g < amountOfGames; g++) {
-    let titleLength = game.title.length
+  const t_first = 115
+  const t_sec = 140
+  const t_third = 165
+
+  const c_first = t_first + 35
+  const c_sec = t_sec + 20
+  const c_third = t_third + 12
+
+  let tc = ''
+  const titlestuff = `style='font-size:17;' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="bold">`
+
+  if (game.title === 'Twilight Imperium: Fourth Edition'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight Imperium: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Fourth Edition </text>`
+    clock_y = c_sec
   }
-
-  // simple title-only version:
-  // let nodeStyle = `<circle cx="55" cy="50" r="50" fill="#e9e9ca" />
-  // <text x="55" y="58" font-size="16" text-anchor="middle" stroke="#000" data-content='{Binding title}'></text>`
-  // let circles = ``
-
-  // titles wrap after 18 characters
-  // const first_line_char_limit = 17
-  const first_line_char_limit = 15
-  var title_extraLines = Math.ceil(game.title.length / first_line_char_limit) - 1
-  let start_infos = 40 + title_extraLines * 10
-
-  if (game.title == 'Twilight Imperium: Fourth Edition') { // Wortlängen sind blöd, deshalb hardcoded...
-    start_infos = 60
-    start_infos = 70
-  } else if (game.title.length - first_line_char_limit <= 0) {
-    start_infos = 40
-    start_infos = 30
-  } else if (game.title.length - first_line_char_limit < 17) {
-    start_infos = 50
-  } else {
-    start_infos = 60
-    start_infos = 70
+  else if (game.title === 'Gloomhaven') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Gloomhaven </text>`
+    clock_y = c_first
   }
-
-  const buffer_small_title = 10
-  const buffer_infos = 11
-
-  const first_info_txt = start_infos + buffer_small_title
-  const sec_info_title = first_info_txt + buffer_infos
-  const sec_info_txt = sec_info_title + buffer_small_title
-
-  let nodeStyle = `
-    <circle cx='55' cy='50' r='50' fill='#e9e9ca' />
-    <text x='55' y='25' style='font-size:10' text-anchor='middle'>
-    <!-- <tspan data-content='{Binding title}'></tspan> -->
-    <!-- <tspan x="55" y="35" ></tspan> -->
-    </text>
-    
-    <text x='55' y='` + start_infos + `' style='font-size:8' text-anchor='middle'>Players:</text>    
-    <text x='45' y='` + first_info_txt + `' style='font-size:8' text-anchor='end' data-content='{Binding minplayers}'></text>
-    <text x='55' y='` + first_info_txt + `' style='font-size:8' text-anchor='middle'>to</text>
-    <text x='65' y='` + first_info_txt + `' style='font-size:8' text-anchor='start' data-content='{Binding maxplayers}'></text>
-
-    <text x='55' y='` + sec_info_title + `' style='font-size:8' text-anchor='middle'>Playtime (in mins):</text>    
-    <text x='45' y='` + sec_info_txt + `' style='font-size:8' text-anchor='end' data-content='{Binding minplaytime}'></text>
-    <text x='55' y='` + sec_info_txt + `' style='font-size:8' text-anchor='middle'>to</text>
-    <text x='65' y='` + sec_info_txt + `' style='font-size:8' text-anchor='start' data-content='{Binding maxplaytime}'></text>
-    `
-  // const gameNodeStyleSVG = new StringTemplateNodeStyle(circles + nodeStyle)
-  let txt_y
-  let clock_y
-  if (game.rank <= rank_limit) {
-    txt_y = first_info_txt + 115
-    clock_y = txt_y - 20
-  } else {
-    txt_y = 40 + 115 + 15
-    clock_y = txt_y - 20
+  else if (game.title === 'Brass: Birmingham') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: Birmingham </text>`
+    clock_y = c_first
   }
-  const housing = `
+  else if (game.title === 'Pandemic Legacy: Season 1'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Pandemic Legacy: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Season 1 </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Ark Nova') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Ark Nova </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Terraforming Mars'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Terraforming </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Mars </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Gloomhaven: Jaws of the Lion'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Gloomhaven: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Jaws of the Lion </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Star Wars: Rebellion'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Star Wars: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Rebellion </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'War of the Ring: Second Edition'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` War of the Ring: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Second Edition </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Spirit Island') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Spirit Island </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Gaia Project') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Gaia Project </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Dune: Imperium') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Dune: Imperium </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Through the Ages: A New Story of Civilization'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Through the Ages:  </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` A New Story </text>
+    <text x='74' y='` + t_third + `' `+ titlestuff +` of Civilization </text>`
+    clock_y = c_third
+  }
+  else if (game.title === 'Twilight Struggle') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight Struggle </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Great Western Trail'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Great Western </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Trail </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Scythe') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Scythe </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'The Castles of Burgundy'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` The Castles of </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Burgundy </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Nemesis') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Nemesis </text>`
+    clock_y = c_first
+  }
+  else if (game.title === '7 Wonders Duel') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` 7 Wonders Duel </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Brass: Lancashire') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: Lancashire </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Concordia') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Concordia </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'A Feast for Odin') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` A Feast for Odin </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Eclipse: Second Dawn for the Galaxy'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Eclipse: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Second Dawn </text>
+    <text x='74' y='` + t_third + `' `+ titlestuff +` for the Galaxy </text>`
+    clock_y = c_third
+  }
+  else if (game.title === 'Terra Mystica') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Terra Mystica </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Wingspan') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Wingspan </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Clank!: Legacy \u2013 Acquisitions Incorporated'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Clank!: Legacy \u2013 </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Acquisitions </text>
+    <text x='74' y='` + t_third + `' `+ titlestuff +` Incorporated </text>`
+    clock_y = c_third
+  }
+  else if (game.title === 'Arkham Horror: The Card Game'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Arkham Horror: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Card Game </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Root') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Root </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Lost Ruins of Arnak') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Lost Ruins </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` of Arnak </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Orl\u00e9ans') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Orl\u00e9ans </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Everdell') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Everdell </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Viticulture Essential Edition'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Viticulture </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Essential Edition </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Mage Knight Board Game'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Mage Knight </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Board Game </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Barrage') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Barrage </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Food Chain Magnate') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Food Chain </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Magnate </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Marvel Champions: The Card Game'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Marvel Champions: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Card Game </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Too Many Bones') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Too Many Bones </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'The Crew: Mission Deep Sea'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` The Crew: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Mission Deep Sea </text>`
+    clock_y = c_sec
+  }
+  else if (game.title === 'Puerto Rico') {
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Puerto Rico </text>`
+    clock_y = c_first
+  }
+  else if (game.title === 'Caverna: The Cave Farmers'){
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Caverna: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Cave Farmers </text>`
+    clock_y = c_sec
+  }
+  
+  clock_txt = clock_y + 30
+  let housing = `
     <g transform='translate(17, -35) scale(0.8 0.8)'>
-      <polygon points='75,40 0,100, 0,250  150,250 150,100 ' stroke='` + house_color_bright + `' fill='` + house_color_bright + `'/>
-      <polygon points='150,250 150,100 225,50, 225,200 ' stroke='` + house_color_dark + `' fill='` + house_color_dark + `'/>
+      <polygon points='78,41 0,100, 0,250  150,250 150,100 ' stroke='` + house_color_bright + `' fill='` + house_color_bright + `'/>
+      <polygon points='150,250 150,100 225,55, 225,200 ' stroke='` + house_color_dark + `' fill='` + house_color_dark + `'/>
       <polygon points='231,55, 155,105 75,40 150,-5' fill='` + roof_color + `'/>
       <polygon points='231,55, 155,10 ' fill='` + roof_color + `'/>
       <polygon points='77,40, -3,101 ' stroke='` + roof_color + `' stroke-width='3' fill='none'/>
 
-
       <rect x = '-30' y='185' width='40' height='25' rx='3' fill='` + dark_color + `'/>
       <rect x = '-12' y='185' width='4' height='70' fill='` + dark_color + `'/>
       <text x='-10' y='202' font-size='15' text-anchor='middle' stroke='white'  fill='white' stroke-width='0.75px' stroke-linejoin='round' data-content='{Binding rank}'></text> 
-
-      <g transform='translate(72,` + clock_y + `) scale(0.7 0.7)'>
-        <path d='M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z'/> <path d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z'/> 
-      </g>
       
-      <text x='72' y='` + txt_y + `' style='font-size:8' text-anchor='end' data-content='{Binding minplaytime}'></text>
-      <text x='77' y='` + txt_y + `' style='font-size:8' text-anchor='middle'>-</text>
-      <text x='83' y='` + txt_y + `' style='font-size:8' text-anchor='start' data-content='{Binding maxplaytime}'></text>
-      `
+      <g transform='translate(68,` + clock_y + `) scale(0.8 0.87)'>
+        <path fill='`+dark_color+`' d='M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z'/> 
+        <path fill='`+dark_color+`' d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z'/> 
+      </g>` 
+      + tc
+
+  if (game.minplaytime === game.maxplaytime){
+    housing = housing + `<text x='74' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="lighter" data-content='{Binding maxplaytime}'></text>`
+  }
+  else {
+    housing = housing +
+    `<text x='69' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='end' font-weight="lighter" data-content='{Binding minplaytime}'></text>
+    <text x='74' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="lighter">-</text>
+    <text x='79' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='start' font-weight="lighter" data-content='{Binding maxplaytime}'></text>`
+  }
 
   const hut = `
     <g transform='translate(17, 0) scale(0.5 0.5)'>
@@ -230,17 +344,19 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   let gameNodeStyleSVG
   let nodeLabelStyle
   if (game.rank <= rank_limit) {
-    gameNodeStyleSVG = (housing + people + windows + `</g>`)
+    gameNodeStyleSVG = (housing + people + icons + `</g>`)
 
     nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
       wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
-      font: new Font('Tahoma', 8, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
+      // font: new Font('Tahoma', 8, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
+      font: new Font('Tahoma', 12, FontStyle.INHERIT, FontWeight.BOLD), // FONT-STYLING
       textFill: 'rgb(0, 0, 0)', // TEXT-COLOR
-      verticalTextAlignment: VerticalTextAlignment.TOP, // VERTICAL TEXT ALIGNMENT
+      verticalTextAlignment: VerticalTextAlignment.CENTER, // VERTICAL TEXT ALIGNMENT
       // verticalTextAlignment: VerticalTextAlignment.CENTER, // VERTICAL TEXT ALIGNMENT
       horizontalTextAlignment: HorizontalTextAlignment.CENTER, // HORIZONTAL TEXT ALIGNMENT
       clipText: false, // CLIPS TEXT IF IT DOESN'T FIT
-
+      // maximumSize: funktioniert nicht? 
+      
       // textWrappingShape: 'ellipse',
       // textWrappingPadding: 1,
       // insets: [0, 0, 0, 10]
@@ -248,9 +364,10 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       // VerticalTextAlignment.TOP
       // insets: [10, 0, 0, 10]
       // insets: [16, 6, 0, 16] // BEST
-      insets: [16, 8, 0, 17] // BEST
+      // insets: [16, 8, 0, 17] // OLD BEST
+      // insets: [42, -10, 0, 25] // NEW 
       // VerticalTextAlignment.CENTER
-      // insets: [10, 0, 80, 10]
+      insets: [30, 0, 0, 20]
     })
   } else {
     gameNodeStyleSVG = (hut + `</g>`)
@@ -270,7 +387,8 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       // insets stehen als left, top, right, bot in der doku, ist aber glaub eigentlich TOP, RIGHT, BOT, LEFT
       // VerticalTextAlignment.TOP
       // insets: [10, 0, 0, 10]
-      insets: [48, 8, 0, 17] // BEST
+      // insets: [48, 8, 0, 17] // OLD BEST
+      insets: [60, 20, 0, 30] // OLD BEST
       // VerticalTextAlignment.CENTER
       // insets: [10, 0, 80, 10]
     })
