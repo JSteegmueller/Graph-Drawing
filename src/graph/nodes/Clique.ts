@@ -54,6 +54,7 @@ export function findCliques(graph: DefaultGraph) {
       const game = node.tag as Game
       if (!game) continue
       metaGame.types.categories.push(...game.types.categories)
+      metaGame.clique = game.clique
     }
     cliqueNode.tag = metaGame
   }

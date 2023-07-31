@@ -31,9 +31,11 @@ import React, { Component } from 'react'
 import {
   GraphComponent,
   GraphEditorInputMode,
+  GraphMLSupport,
   GraphViewerInputMode,
   HierarchicNestingPolicy,
   ICommand,
+  StorageLocation,
   SvgExport
 } from 'yfiles'
 import '../lib/yFilesLicense'
@@ -67,7 +69,10 @@ export default class ReactGraphComponent extends Component {
     graphModelManager.hierarchicNestingPolicy = HierarchicNestingPolicy.GROUP_NODES
     this.graphComponent.graph = await loadGraph()
     this.graphComponent.graph.undoEngineEnabled = true
-    this.graphComponent.inputMode = new GraphEditorInputMode()
+    this.graphComponent.inputMode = new GraphEditorInputMode({ allowCreateNode: true, allowCreateEdge: false })
+    const support = new GraphMLSupport(this.graphComponent)
+    support.storageLocation = StorageLocation.FILE_SYSTEM
+
     // center the newly created graph
     this.graphComponent.fitGraphBounds()
   }
@@ -96,6 +101,12 @@ export default class ReactGraphComponent extends Component {
     })
     eventBus.subscribe('zoom-fit', () => {
       ICommand.FIT_GRAPH_BOUNDS.execute(null, this.graphComponent)
+    })
+    eventBus.subscribe('open', async () => {
+      ICommand.OPEN.execute(null, this.graphComponent)
+    })
+    eventBus.subscribe('save', async () => {
+      ICommand.SAVE.execute(null, this.graphComponent)
     })
     eventBus.subscribe('export', async () => {
       const exporter = new SvgExport({

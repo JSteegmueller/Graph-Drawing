@@ -193,7 +193,7 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
     clock_y = txt_y - 20
   }
   const housing = `
-    <g transform='translate(17, -35) scale(0.5 0.5)'>
+    <g transform='translate(17, -35) scale(0.8 0.8)'>
       <polygon points='75,40 0,100, 0,250  150,250 150,100 ' stroke='` + house_color_bright + `' fill='` + house_color_bright + `'/>
       <polygon points='150,250 150,100 225,50, 225,200 ' stroke='` + house_color_dark + `' fill='` + house_color_dark + `'/>
       <polygon points='231,55, 155,105 75,40 150,-5' fill='` + roof_color + `'/>
@@ -253,7 +253,7 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       // insets: [10, 0, 80, 10]
     })
   } else {
-    gameNodeStyleSVG =  (hut + `</g>`)
+    gameNodeStyleSVG = (hut + `</g>`)
 
     nodeLabelStyle = new DefaultLabelStyle({ // NODELABELSTYLE
       wrapping: TextWrapping.WORD, // TEXT-WRAPPING PER WORD
