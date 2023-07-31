@@ -58,7 +58,10 @@ export default async function loadGraph() {
       shape: 'ellipse'
     })
   )
-  const nodes = createNodes(graph, top40)
+
+  const rank_limit = 40
+
+  const nodes = createNodes(graph, top40, rank_limit)
   console.log('Graph: Nodes loaded')
 
   createEdges(graph, nodes)
@@ -79,7 +82,7 @@ export default async function loadGraph() {
   applyLayout(graph, Layout.OrganicLayout)
   console.log('Graph: Layout applied')
 
-  applyGroupNodeStyle(graph)
+  applyGroupNodeStyle(graph, rank_limit)
   console.log('Graph: Group nodes styled')
 
   applyEdgeStyle(graph)

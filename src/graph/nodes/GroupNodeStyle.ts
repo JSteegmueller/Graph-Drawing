@@ -3,7 +3,7 @@ import { Game } from '../../types/Game'
 import { getNodeStyle } from './NodeStyle'
 import createGeneralPathFromSvgPathData from '../../PathToPath'
 
-export function applyGroupNodeStyle(graph: DefaultGraph) {
+export function applyGroupNodeStyle(graph: DefaultGraph, rank_limit: number) {
   let i = 0
   for (const node of graph.nodes) {
     if (graph.isGroupNode(node)) {
@@ -19,7 +19,7 @@ export function applyGroupNodeStyle(graph: DefaultGraph) {
       graph.setStyle(node, groupNodeStyleSVG)
     } else if (graph.getParent(node) == null) {
       const game = node.tag as Game
-      let currNodeStyle = getNodeStyle(game, 40)
+      let currNodeStyle = getNodeStyle(game, 40, rank_limit)
 
       // width="459.000000pt" height="412.000000pt"
       let updatedNodeStyle = `<svg xmlns='http://www.w3.org/2000/svg'>`
