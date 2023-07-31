@@ -29,11 +29,16 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
             const new_category_name_war = "War", new_category_id_war = 1
             const new_category_name_building = "Building", new_category_id_building = 2
             const new_category_name_economic = "Economic", new_category_id_economic = 3
-            const new_category_name_pop_culture = "Pop-Culture", new_category_id_pop_culture = 4
+            const new_category_name_adventure = "Adventure", new_category_id_adventure = 4
+            const new_category_name_science_fiction = "Science Fiction", new_category_id_science_fiction = 5
+            const new_category_name_fantasy = "Fantasy", new_category_id_fantasy = 6
+            const new_category_name_miniature_figures = "Miniature Figures", new_category_id_miniature_figures = 7
+            const new_category_name_pop_culture = "Pop Culture", new_category_id_pop_culture = 8
             // update Categories here
             switch (game_category.id)
             {
                 // ################### CATEGORY RENAMES ################### 
+                // ################### War ################### 
                 // Wargame
                 case 1019:
                     
@@ -53,6 +58,7 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
                     game_category.name = new_category_name_war
                     break;
 
+                // ################### Building ###################
                 // Territory Building
                 case 1086:
                     game_category.id = new_category_id_building
@@ -65,6 +71,7 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
                     game_category.name = new_category_name_building
                     break;
 
+                // ################### Economic ###################
                 // Economic
                 case 1021:
                     game_category.id = new_category_id_economic
@@ -83,6 +90,53 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
                     game_category.name = new_category_name_economic
                     break;
 
+                // ################### Adventure ###################
+                // Adventure
+                case 1022:
+                    game_category.id = new_category_id_adventure
+                    game_category.name = new_category_name_adventure
+                    break;
+                    
+                // Exploration
+                case 1020:
+                    game_category.id = new_category_id_adventure
+                    game_category.name = new_category_name_adventure
+                    break;
+
+                // ################### Science Fiction ###################
+                // Space Exploration
+                case 1113:
+                    game_category.id = new_category_id_science_fiction
+                    game_category.name = new_category_name_science_fiction
+                    break;
+                    
+                // Science Fiction
+                case 1016:
+                    game_category.id = new_category_id_science_fiction
+                    game_category.name = new_category_name_science_fiction
+                    break;
+
+                // ################### Fantasy ###################
+                // Fantasy
+                case 1010:
+                    game_category.id = new_category_id_fantasy
+                    game_category.name = new_category_name_fantasy
+                    break;
+                    
+                // Mythology
+                case 1082:
+                    game_category.id = new_category_id_fantasy
+                    game_category.name = new_category_name_fantasy
+                    break;
+
+                // ################### Miniature Figures ###################
+                // Miniatures
+                case 1047:
+                    game_category.id = new_category_id_miniature_figures
+                    game_category.name = new_category_name_miniature_figures
+                    break;
+                    
+                // ################### Pop Culture ###################
                 // Comic Book / Strip
                 case 1116:
                     game_category.id = new_category_id_pop_culture
