@@ -13,7 +13,11 @@ export function createNodes(graph: DefaultGraph, games: Game[], rank_limit : num
   const amountOfGames = games.length
 
   for (const game of games) {
-    let { gameNodeStyleSVGStringTemplate, nodeLabelStyle, gameNodeStyleSVG } = getNodeStyle(game, amountOfGames, rank_limit)
+    let {
+      gameNodeStyleSVGStringTemplate,
+      nodeLabelStyle,
+      gameNodeStyleSVG
+    } = getNodeStyle(game, amountOfGames, rank_limit)
 
     const gameNode = graph.createNode(null, gameShape, gameNodeStyleSVGStringTemplate, game)
 
