@@ -6,7 +6,7 @@ import { preprocessNodeCategories } from './NodeCategoryPreprocessor'
 
 export function createNodes(graph: DefaultGraph, games: Game[], rank_limit : number): Map<number, INode> {
   
-  let preprocessed_games = preprocessNodeCategories(games, rank_limit)
+  preprocessNodeCategories(games, rank_limit)
 
   const gameShape = new Rect(0, 0, 100, 100)
   const nodeMap = new Map<number, INode>()
