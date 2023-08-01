@@ -246,9 +246,11 @@ export function preprocessNodeCategories(games: Game[], rank_limit: number)
                     game.types.categories = game.types.categories.filter(cat => cat.id !== 1047)
                     break;
 
-                // default case, shouldnt be reached.
+                case 1084:
+                    game.types.categories = game.types.categories.filter(cat => cat.id !== 1084)
+                    break;
+                    
                 default:
-                    console.log("default case reached")
                     break;
             }
         }
