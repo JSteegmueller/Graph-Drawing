@@ -39,11 +39,12 @@ export function applyGroupNodeStyle(graph: DefaultGraph, rank_limit: number, sho
         + `</g></svg>`
 
       graph.setStyle(node, new StringTemplateNodeStyle(updatedNodeStyle))
+      graph.setNodeLayout(node, new Rect(node.layout.x + 55, node.layout.y + 55, node.layout.width * 3.8, node.layout.height * 3.8))
     }
   }
 }
 
-const island_single = `<g transform='translate(-2895 -1272)'>
+const island_single = `<g transform='translate(-2885 -1232)'>
 <path d='M2957.34 1345.22C2914.15 1354.77 2876.65 1390.89 2866.14 1422.95 2855.64 1455.01 2854.88 1515.61 
 2894.31 1537.58 2933.75 1559.56 3050.17 1570.06 3102.75 1554.78 3155.33 1539.49 3206.03 1477.4 3209.79 
 1445.88 3213.54 1414.35 3167.36 1382.41 3125.28 1365.63 3083.21 1348.86 3000.53 1335.66 2957.34 1345.22Z' 
