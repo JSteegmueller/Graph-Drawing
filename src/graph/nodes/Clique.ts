@@ -30,6 +30,7 @@ export function findCliques(graph: DefaultGraph) {
     const cliqueNode = graph.createGroupNode()
     cliqueNodeMap.set(cliqueID, cliqueNode)
     for (const node of clique) {
+      console.log((node.tag as Game).title)
       graph.setParent(node, cliqueNode)
       const game = (node.tag as Game)
       game.types.categories.map(cat => catCounter.set(cat.name, (catCounter.get(cat.name) ?? 0) + 1))

@@ -114,25 +114,28 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   const c_third = t_third + 12
 
   let tc = ''
-  const titlestuff = `style='font-size:17;' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="bold">`
+  const titlestuff = `style='font-size:18;' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="bold">`
 
   if (game.title === 'Twilight Imperium: Fourth Edition'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight Imperium: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Fourth Edition </text>`
-    clock_y = c_sec
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Imperium: </text>
+    <text x='74' y='` + t_third + `' `+ titlestuff +` Fourth Edition </text>`
+    clock_y = c_third
   }
   else if (game.title === 'Gloomhaven') {
     tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Gloomhaven </text>`
     clock_y = c_first
   }
   else if (game.title === 'Brass: Birmingham') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: Birmingham </text>`
-    clock_y = c_first
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Birmingham </text>`
+    clock_y = c_sec
   }
   else if (game.title === 'Pandemic Legacy: Season 1'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Pandemic Legacy: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Season 1 </text>`
-    clock_y = c_sec
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Pandemic </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Legacy: </text>
+    <text x='74' y='` + t_third + `' `+ titlestuff +` Season 1 </text>`
+    clock_y = c_third
   }
   else if (game.title === 'Ark Nova') {
     tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Ark Nova </text>`
@@ -167,18 +170,20 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
     clock_y = c_first
   }
   else if (game.title === 'Dune: Imperium') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Dune: Imperium </text>`
-    clock_y = c_first
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Dune: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Imperium </text>`
+    clock_y = c_sec
   }
   else if (game.title === 'Through the Ages: A New Story of Civilization'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Through the Ages:  </text>
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Through the Ages: </text>
     <text x='74' y='` + t_sec + `' `+ titlestuff +` A New Story </text>
     <text x='74' y='` + t_third + `' `+ titlestuff +` of Civilization </text>`
     clock_y = c_third
   }
   else if (game.title === 'Twilight Struggle') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight Struggle </text>`
-    clock_y = c_first
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Struggle </text>`
+    clock_y = c_sec
   }
   else if (game.title === 'Great Western Trail'){
     tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Great Western </text>
@@ -199,12 +204,14 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
     clock_y = c_first
   }
   else if (game.title === '7 Wonders Duel') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` 7 Wonders Duel </text>`
-    clock_y = c_first
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` 7 Wonders </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Duel </text>`
+    clock_y = c_sec
   }
   else if (game.title === 'Brass: Lancashire') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: Lancashire </text>`
-    clock_y = c_first
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Lancashire </text>`
+    clock_y = c_sec
   }
   else if (game.title === 'Concordia') {
     tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Concordia </text>`
@@ -276,13 +283,15 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
     clock_y = c_sec
   }
   else if (game.title === 'Marvel Champions: The Card Game'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Marvel Champions: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Card Game </text>`
-    clock_y = c_sec
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Marvel </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Champions: </text>
+    <text x='74' y='` + t_third + `' `+ titlestuff +` The Card Game </text>`
+    clock_y = c_third
   }
   else if (game.title === 'Too Many Bones') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Too Many Bones </text>`
-    clock_y = c_first
+    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Too Many </text>
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` Bones </text>`
+    clock_y = c_sec
   }
   else if (game.title === 'The Crew: Mission Deep Sea'){
     tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` The Crew: </text>
@@ -295,13 +304,14 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   }
   else if (game.title === 'Caverna: The Cave Farmers'){
     tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Caverna: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Cave Farmers </text>`
-    clock_y = c_sec
+    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Cave </text>
+    <text x='74' y='` + t_third + `' `+ titlestuff +` Farmers </text>`
+    clock_y = c_third
   }
   
   clock_txt = clock_y + 30
   let housing = `
-    <g transform='translate(17, -35) scale(0.8 0.8)'>
+    <g transform='translate(17, -35) scale(1.2 1.2)'>
       <polygon points='78,41 0,100, 0,250  150,250 150,100 ' stroke='` + house_color_bright + `' fill='` + house_color_bright + `'/>
       <polygon points='150,250 150,100 225,55, 225,200 ' stroke='` + house_color_dark + `' fill='` + house_color_dark + `'/>
       <polygon points='231,55, 155,105 75,40 150,-5' fill='` + roof_color + `'/>
@@ -317,7 +327,7 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
         <path fill='`+dark_color+`' d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z'/> 
       </g>` 
       + tc
-
+// 69 74 79 
   if (game.minplaytime === game.maxplaytime){
     housing = housing + `<text x='74' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="lighter" data-content='{Binding maxplaytime}'></text>`
   }
