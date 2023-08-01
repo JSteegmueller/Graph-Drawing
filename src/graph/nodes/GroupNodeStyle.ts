@@ -10,10 +10,10 @@ export function applyGroupNodeStyle(graph: DefaultGraph, rank_limit: number, sho
         image: `${process.env.PUBLIC_URL}/island-${id + 1}.svg`
       })
       graph.setStyle(node, style)
-      if (id === 6 && false) {
-        graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y,
-          node.layout.width, node.layout.height + 150))
-      }
+      
+      graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y,
+        node.layout.width * 1.2, node.layout.height * 1.2))
+      
       if (id === 9 && false) {
         graph.setNodeLayout(node, new Rect(node.layout.x, node.layout.y,
           node.layout.width + 80, node.layout.height + 150))
@@ -43,7 +43,7 @@ export function applyGroupNodeStyle(graph: DefaultGraph, rank_limit: number, sho
   }
 }
 
-const island_single = `<g transform='translate(-2915 -1342)'>
+const island_single = `<g transform='translate(-2895 -1272)'>
 <path d='M2957.34 1345.22C2914.15 1354.77 2876.65 1390.89 2866.14 1422.95 2855.64 1455.01 2854.88 1515.61 
 2894.31 1537.58 2933.75 1559.56 3050.17 1570.06 3102.75 1554.78 3155.33 1539.49 3206.03 1477.4 3209.79 
 1445.88 3213.54 1414.35 3167.36 1382.41 3125.28 1365.63 3083.21 1348.86 3000.53 1335.66 2957.34 1345.22Z' 
