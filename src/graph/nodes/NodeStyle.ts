@@ -21,9 +21,9 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   const roof_color = '#BF0603'
   const dark_color = '#001427'
   const semi_dark_color = '#B19E7B'
- 
+
   const amountOfCategories = game.types.categories.length
- 
+
   const categorieWindows = [
     `<g transform='translate(145,85) scale(0.3 0.4)'>
       <polygon points='100,125, 50,150 50,50 100,25 ' `,
@@ -48,13 +48,13 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   const icon_scale1 = 0.3
   const icon_scale2 = 0.3
 
-  const categorieIcons = [ 
-    `<g transform='translate(160,110) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
-    `<g transform='translate(190,87) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
-    `<g transform='translate(160,150) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
-    `<g transform='translate(190,132) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
-    `<g transform='translate(160,190) scale(`+icon_scale1+` `+icon_scale2+`)'>`,
-    `<g transform='translate(190,170) scale(`+icon_scale1+` `+icon_scale2+`)'>`
+  const categorieIcons = [
+    `<g transform='translate(160,110) scale(` + icon_scale1 + ` ` + icon_scale2 + `)'>`,
+    `<g transform='translate(190,87) scale(` + icon_scale1 + ` ` + icon_scale2 + `)'>`,
+    `<g transform='translate(160,150) scale(` + icon_scale1 + ` ` + icon_scale2 + `)'>`,
+    `<g transform='translate(190,132) scale(` + icon_scale1 + ` ` + icon_scale2 + `)'>`,
+    `<g transform='translate(160,190) scale(` + icon_scale1 + ` ` + icon_scale2 + `)'>`,
+    `<g transform='translate(190,170) scale(` + icon_scale1 + ` ` + icon_scale2 + `)'>`
   ]
 
 
@@ -71,7 +71,7 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   let icons = ``
   for (let c = 0; c < amountOfCategories; c++) {
     let icon = getIconForCategory(game.types.categories[c].id)
-    icons = icons + categorieIcons[c] + icon+`</g>`
+    icons = icons + categorieIcons[c] + icon + `</g>`
   }
 
   const amountPeople = [
@@ -114,201 +114,162 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
   const c_third = t_third + 12
 
   let tc = ''
-  const titlestuff = `style='font-size:18;' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="bold">`
+  const titlestuff = `style='font-size:18;' fill='` + dark_color + `' font-family="Bahnschrift" text-anchor='middle' font-weight="bold">`
 
-  if (game.title === 'Twilight Imperium: Fourth Edition'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Imperium: </text>
-    <text x='74' y='` + t_third + `' `+ titlestuff +` Fourth Edition </text>`
+  if (game.title === 'Twilight Imperium: Fourth Edition') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Twilight </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Imperium: </text>
+    <text x='74' y='` + t_third + `' ` + titlestuff + ` Fourth Edition </text>`
+    clock_y = c_third
+  } else if (game.title === 'Gloomhaven') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Gloomhaven </text>`
+    clock_y = c_first
+  } else if (game.title === 'Brass: Birmingham') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Brass: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Birmingham </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Pandemic Legacy: Season 1') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Pandemic </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Legacy: </text>
+    <text x='74' y='` + t_third + `' ` + titlestuff + ` Season 1 </text>`
+    clock_y = c_third
+  } else if (game.title === 'Ark Nova') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Ark Nova </text>`
+    clock_y = c_first
+  } else if (game.title === 'Terraforming Mars') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Terraforming </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Mars </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Gloomhaven: Jaws of the Lion') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Gloomhaven: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Jaws of the Lion </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Star Wars: Rebellion') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Star Wars: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Rebellion </text>`
+    clock_y = c_sec
+  } else if (game.title === 'War of the Ring: Second Edition') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` War of the Ring: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Second Edition </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Spirit Island') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Spirit Island </text>`
+    clock_y = c_first
+  } else if (game.title === 'Gaia Project') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Gaia Project </text>`
+    clock_y = c_first
+  } else if (game.title === 'Dune: Imperium') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Dune: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Imperium </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Through the Ages: A New Story of Civilization') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Through the Ages: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` A New Story </text>
+    <text x='74' y='` + t_third + `' ` + titlestuff + ` of Civilization </text>`
+    clock_y = c_third
+  } else if (game.title === 'Twilight Struggle') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Twilight </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Struggle </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Great Western Trail') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Great Western </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Trail </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Scythe') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Scythe </text>`
+    clock_y = c_first
+  } else if (game.title === 'The Castles of Burgundy') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` The Castles of </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Burgundy </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Nemesis') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Nemesis </text>`
+    clock_y = c_first
+  } else if (game.title === '7 Wonders Duel') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` 7 Wonders </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Duel </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Brass: Lancashire') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Brass: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Lancashire </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Concordia') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Concordia </text>`
+    clock_y = c_first
+  } else if (game.title === 'A Feast for Odin') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` A Feast for Odin </text>`
+    clock_y = c_first
+  } else if (game.title === 'Eclipse: Second Dawn for the Galaxy') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Eclipse: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Second Dawn </text>
+    <text x='74' y='` + t_third + `' ` + titlestuff + ` for the Galaxy </text>`
+    clock_y = c_third
+  } else if (game.title === 'Terra Mystica') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Terra Mystica </text>`
+    clock_y = c_first
+  } else if (game.title === 'Wingspan') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Wingspan </text>`
+    clock_y = c_first
+  } else if (game.title === 'Clank!: Legacy \u2013 Acquisitions Incorporated') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Clank!: Legacy \u2013 </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Acquisitions </text>
+    <text x='74' y='` + t_third + `' ` + titlestuff + ` Incorporated </text>`
+    clock_y = c_third
+  } else if (game.title === 'Arkham Horror: The Card Game') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Arkham Horror: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` The Card Game </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Root') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Root </text>`
+    clock_y = c_first
+  } else if (game.title === 'Lost Ruins of Arnak') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Lost Ruins </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` of Arnak </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Orl\u00e9ans') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Orl\u00e9ans </text>`
+    clock_y = c_first
+  } else if (game.title === 'Everdell') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Everdell </text>`
+    clock_y = c_first
+  } else if (game.title === 'Viticulture Essential Edition') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Viticulture </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Essential Edition </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Mage Knight Board Game') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Mage Knight </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Board Game </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Barrage') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Barrage </text>`
+    clock_y = c_first
+  } else if (game.title === 'Food Chain Magnate') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Food Chain </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Magnate </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Marvel Champions: The Card Game') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Marvel </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Champions: </text>
+    <text x='74' y='` + t_third + `' ` + titlestuff + ` The Card Game </text>`
+    clock_y = c_third
+  } else if (game.title === 'Too Many Bones') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Too Many </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Bones </text>`
+    clock_y = c_sec
+  } else if (game.title === 'The Crew: Mission Deep Sea') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` The Crew: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` Mission Deep Sea </text>`
+    clock_y = c_sec
+  } else if (game.title === 'Puerto Rico') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Puerto Rico </text>`
+    clock_y = c_first
+  } else if (game.title === 'Caverna: The Cave Farmers') {
+    tc = `<text x='74' y='` + t_first + `' ` + titlestuff + ` Caverna: </text>
+    <text x='74' y='` + t_sec + `' ` + titlestuff + ` The Cave </text>
+    <text x='74' y='` + t_third + `' ` + titlestuff + ` Farmers </text>`
     clock_y = c_third
   }
-  else if (game.title === 'Gloomhaven') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Gloomhaven </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Brass: Birmingham') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Birmingham </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Pandemic Legacy: Season 1'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Pandemic </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Legacy: </text>
-    <text x='74' y='` + t_third + `' `+ titlestuff +` Season 1 </text>`
-    clock_y = c_third
-  }
-  else if (game.title === 'Ark Nova') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Ark Nova </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Terraforming Mars'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Terraforming </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Mars </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Gloomhaven: Jaws of the Lion'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Gloomhaven: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Jaws of the Lion </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Star Wars: Rebellion'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Star Wars: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Rebellion </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'War of the Ring: Second Edition'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` War of the Ring: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Second Edition </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Spirit Island') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Spirit Island </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Gaia Project') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Gaia Project </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Dune: Imperium') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Dune: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Imperium </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Through the Ages: A New Story of Civilization'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Through the Ages: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` A New Story </text>
-    <text x='74' y='` + t_third + `' `+ titlestuff +` of Civilization </text>`
-    clock_y = c_third
-  }
-  else if (game.title === 'Twilight Struggle') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Twilight </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Struggle </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Great Western Trail'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Great Western </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Trail </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Scythe') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Scythe </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'The Castles of Burgundy'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` The Castles of </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Burgundy </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Nemesis') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Nemesis </text>`
-    clock_y = c_first
-  }
-  else if (game.title === '7 Wonders Duel') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` 7 Wonders </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Duel </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Brass: Lancashire') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Brass: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Lancashire </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Concordia') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Concordia </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'A Feast for Odin') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` A Feast for Odin </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Eclipse: Second Dawn for the Galaxy'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Eclipse: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Second Dawn </text>
-    <text x='74' y='` + t_third + `' `+ titlestuff +` for the Galaxy </text>`
-    clock_y = c_third
-  }
-  else if (game.title === 'Terra Mystica') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Terra Mystica </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Wingspan') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Wingspan </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Clank!: Legacy \u2013 Acquisitions Incorporated'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Clank!: Legacy \u2013 </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Acquisitions </text>
-    <text x='74' y='` + t_third + `' `+ titlestuff +` Incorporated </text>`
-    clock_y = c_third
-  }
-  else if (game.title === 'Arkham Horror: The Card Game'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Arkham Horror: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Card Game </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Root') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Root </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Lost Ruins of Arnak') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Lost Ruins </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` of Arnak </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Orl\u00e9ans') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Orl\u00e9ans </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Everdell') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Everdell </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Viticulture Essential Edition'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Viticulture </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Essential Edition </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Mage Knight Board Game'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Mage Knight </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Board Game </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Barrage') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Barrage </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Food Chain Magnate') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Food Chain </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Magnate </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Marvel Champions: The Card Game'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Marvel </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Champions: </text>
-    <text x='74' y='` + t_third + `' `+ titlestuff +` The Card Game </text>`
-    clock_y = c_third
-  }
-  else if (game.title === 'Too Many Bones') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Too Many </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Bones </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'The Crew: Mission Deep Sea'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` The Crew: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` Mission Deep Sea </text>`
-    clock_y = c_sec
-  }
-  else if (game.title === 'Puerto Rico') {
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Puerto Rico </text>`
-    clock_y = c_first
-  }
-  else if (game.title === 'Caverna: The Cave Farmers'){
-    tc = `<text x='74' y='` + t_first + `' `+ titlestuff +` Caverna: </text>
-    <text x='74' y='` + t_sec + `' `+ titlestuff +` The Cave </text>
-    <text x='74' y='` + t_third + `' `+ titlestuff +` Farmers </text>`
-    clock_y = c_third
-  }
-  
+
   clock_txt = clock_y + 30
   let housing = `
     <g transform='translate(17, -35) scale(1.2 1.2)'>
@@ -320,22 +281,21 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
 
       <rect x = '-30' y='185' width='40' height='25' rx='3' fill='` + dark_color + `'/>
       <rect x = '-12' y='185' width='4' height='70' fill='` + dark_color + `'/>
-      <text x='-10' y='202' font-size='15' text-anchor='middle' stroke='white'  fill='white' stroke-width='0.75px' stroke-linejoin='round' data-content='{Binding rank}'></text> 
+      <text x='-10' y='202' font-family='Bahnschrift' font-size='15' text-anchor='middle' stroke='white'  fill='white' stroke-width='0.75px' stroke-linejoin='round' data-content='{Binding rank}'></text> 
       
       <g transform='translate(68,` + clock_y + `) scale(0.8 0.87)'>
-        <path fill='`+dark_color+`' d='M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z'/> 
-        <path fill='`+dark_color+`' d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z'/> 
-      </g>` 
-      + tc
+        <path fill='` + dark_color + `' d='M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z'/> 
+        <path fill='` + dark_color + `' d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z'/> 
+      </g>`
+    + tc
 // 69 74 79 
-  if (game.minplaytime === game.maxplaytime){
-    housing = housing + `<text x='74' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="lighter" data-content='{Binding maxplaytime}'></text>`
-  }
-  else {
+  if (game.minplaytime === game.maxplaytime) {
+    housing = housing + `<text x='74' y='` + clock_txt + `' style='font-size:13' fill='` + dark_color + `' font-family='Bahnschrift' text-anchor='middle' font-weight='lighter' data-content='{Binding maxplaytime}'></text>`
+  } else {
     housing = housing +
-    `<text x='69' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='end' font-weight="lighter" data-content='{Binding minplaytime}'></text>
-    <text x='74' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='middle' font-weight="lighter">-</text>
-    <text x='79' y='` + clock_txt + `' style='font-size:13' fill='`+dark_color+`' font-family="Bahnschrift" text-anchor='start' font-weight="lighter" data-content='{Binding maxplaytime}'></text>`
+      `<text x='69' y='` + clock_txt + `' style='font-size:13' fill='` + dark_color + `' font-family='Bahnschrift' text-anchor='end' font-weight='lighter' data-content='{Binding minplaytime}'></text>
+    <text x='74' y='` + clock_txt + `' style='font-size:13' fill='` + dark_color + `' font-family='Bahnschrift' text-anchor='middle' font-weight='lighter'>-</text>
+    <text x='79' y='` + clock_txt + `' style='font-size:13' fill='` + dark_color + `' font-family='Bahnschrift' text-anchor='start' font-weight='lighter' data-content='{Binding maxplaytime}'></text>`
   }
 
   const hut = `
@@ -366,7 +326,7 @@ export function getNodeStyle(game: Game, amountOfGames: number, rank_limit: numb
       horizontalTextAlignment: HorizontalTextAlignment.CENTER, // HORIZONTAL TEXT ALIGNMENT
       clipText: false, // CLIPS TEXT IF IT DOESN'T FIT
       // maximumSize: funktioniert nicht? 
-      
+
       // textWrappingShape: 'ellipse',
       // textWrappingPadding: 1,
       // insets: [0, 0, 0, 10]
