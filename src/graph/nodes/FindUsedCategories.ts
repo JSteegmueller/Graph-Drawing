@@ -12,7 +12,7 @@ export function findUsedCategories(graph: DefaultGraph)
             continue;
         }
         const game = node.tag as Game
-        if(game.rank > rank_limit)
+        if(game.title != "Terraforming Mars")
         {
             continue;
         }
