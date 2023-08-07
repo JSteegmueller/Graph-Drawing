@@ -1,4 +1,4 @@
-# Board Games Sea Map
+# Sea of Boardgames
 
 ![Board Games Sea Map](./poster-design-graph-drawing.png)
 
