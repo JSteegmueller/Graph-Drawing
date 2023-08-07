@@ -1,6 +1,6 @@
 # Board Games Sea Map
 
-![Board Games Sea Map](./demo.png)
+![Board Games Sea Map](./poster-design-graph-drawing.png)
 
 Welcome to the Board Games Sea Map project repository! This project showcases an interactive graph visualization of the top 40 board games using yFiles for HTML. The graph represents relationships between board games, where nodes represent games and edges indicate the "who plays this also recommends this" connections.
 
