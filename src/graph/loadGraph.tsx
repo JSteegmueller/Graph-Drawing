@@ -26,7 +26,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DefaultGraph } from 'yfiles'
+import { DefaultGraph, ShapeNodeStyle } from 'yfiles'
 import uTop40 from './data/top40.json'
 import uTop100 from './data/top100.json'
 import { Game } from '../types/Game'
@@ -37,7 +37,10 @@ import { applyClustering, ClusteringAlgo } from './nodes/Clustering'
 import { findCliques } from './nodes/Clique'
 import { mergeBidirectional } from './edges/Bidirectional'
 import { applyEdgeStyle } from './edges/EdgeStyle'
+import { applyGroupNodeStyle } from './nodes/GroupNodeStyle'
 import { applyEdgeRouting } from './edges/Router'
+import { findUsedCategories } from './nodes/FindUsedCategories'
+import GreenEdgePortCandidateProvider from './PortCandidatProvider'
 
 const top40: Game[] = uTop40
 const top100: Game[] = uTop100
@@ -45,8 +48,13 @@ const top100: Game[] = uTop100
 
 export default async function loadGraph() {
   const graph = new DefaultGraph()
-
-  const nodes = createNodes(graph, top40)
+  const edgeDecorator = graph.decorator.edgeDecorator
+  edgeDecorator.edgeReconnectionPortCandidateProviderDecorator.setFactory(edge =>
+    new GreenEdgePortCandidateProvider())
+    
+  const rank_limit = 40
+  graph.nodeDefaults.style = new ShapeNodeStyle({ fill: 'transparent', stroke: 'transparent' })
+  const nodes = createNodes(graph, top40, rank_limit)
   console.log('Graph: Nodes loaded')
 
   createEdges(graph, nodes)
@@ -67,11 +75,18 @@ export default async function loadGraph() {
   applyLayout(graph, Layout.OrganicLayout)
   console.log('Graph: Layout applied')
 
+  applyGroupNodeStyle(graph, rank_limit)
+  console.log('Graph: Group nodes styled')
+
   applyEdgeStyle(graph)
   console.log('Graph: Edges styled')
 
   applyEdgeRouting(graph)
+  //applyEdgeBundling(graph)
   console.log('Graph: Edges routed')
+
+  findUsedCategories(graph)
+  console.log('Graph: CategoriesPrinted')
 
   console.log('Graph: completed')
   return graph

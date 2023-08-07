@@ -28,11 +28,21 @@
 
 import 'yfiles/yfiles.css'
 import React, { Component } from 'react'
-import { GraphComponent, GraphViewerInputMode, HierarchicNestingPolicy, ICommand } from 'yfiles'
+import {
+  GraphComponent,
+  GraphEditorInputMode,
+  GraphMLSupport,
+  GraphViewerInputMode,
+  HierarchicNestingPolicy,
+  ICommand,
+  StorageLocation,
+  SvgExport
+} from 'yfiles'
 import '../lib/yFilesLicense'
 import loadGraph from '../graph/loadGraph'
 import { eventBus } from '../lib/EventBus'
 import UserInputDialog from './UserInputDialog'
+import FileSaveSupport from '../FileSaveSupport'
 
 export default class ReactGraphComponent extends Component {
   private readonly div: React.RefObject<HTMLDivElement>
@@ -58,6 +68,10 @@ export default class ReactGraphComponent extends Component {
     const graphModelManager = this.graphComponent.graphModelManager
     graphModelManager.hierarchicNestingPolicy = HierarchicNestingPolicy.GROUP_NODES
     this.graphComponent.graph = await loadGraph()
+    this.graphComponent.graph.undoEngineEnabled = true
+    this.graphComponent.inputMode = new GraphEditorInputMode({ allowCreateNode: true, allowCreateEdge: false })
+    const support = new GraphMLSupport(this.graphComponent)
+    support.storageLocation = StorageLocation.FILE_SYSTEM
 
     // center the newly created graph
     this.graphComponent.fitGraphBounds()
@@ -87,6 +101,24 @@ export default class ReactGraphComponent extends Component {
     })
     eventBus.subscribe('zoom-fit', () => {
       ICommand.FIT_GRAPH_BOUNDS.execute(null, this.graphComponent)
+    })
+    eventBus.subscribe('open', async () => {
+      ICommand.OPEN.execute(null, this.graphComponent)
+    })
+    eventBus.subscribe('save', async () => {
+      ICommand.SAVE.execute(null, this.graphComponent)
+    })
+    eventBus.subscribe('export', async () => {
+      const exporter = new SvgExport({
+        // determine the bounds of the exported area
+        worldBounds: this.graphComponent.contentRect,
+        scale: 1,
+        encodeImagesBase64: true,
+        inlineSvgImages: true,
+        background: '#a8d4e4'
+      })
+      const svg = await exporter.exportSvgAsync(this.graphComponent)
+      await FileSaveSupport.save(SvgExport.exportSvgString(svg), 'graph.svg')
     })
   }
 }

@@ -34,30 +34,59 @@ export default class Toolbar extends Component {
   zoomIn() {
     eventBus.dispatch('zoom-in')
   }
+
   zoomOut() {
     eventBus.dispatch('zoom-out')
   }
+
   zoomFit() {
     eventBus.dispatch('zoom-fit')
   }
 
+  export() {
+    eventBus.dispatch('export')
+  }
+
+  save() {
+    eventBus.dispatch('save')
+  }
+
+  open() {
+    eventBus.dispatch('open')
+  }
+
   render() {
     return (
-      <div className="toolbar">
+      <div className='toolbar'>
         <button
-          title="Increase Zoom"
-          className="demo-icon-yIconZoomIn"
+          title='Increase Zoom'
+          className='demo-icon-yIconZoomIn'
           onClick={this.zoomIn}
         />
         <button
-          title="Decrease Zoom"
-          className="demo-icon-yIconZoomOut"
+          title='Decrease Zoom'
+          className='demo-icon-yIconZoomOut'
           onClick={this.zoomOut}
         />
         <button
-          title="Fit Graph Bounds"
-          className="demo-icon-yIconZoomFit"
+          title='Fit Graph Bounds'
+          className='demo-icon-yIconZoomFit'
           onClick={this.zoomFit}
+        />
+        <button
+          title='Export'
+          className='demo-icon-yIconPrint'
+          onClick={this.export}
+        />
+        <button
+          title='Save'
+          className='demo-icon-yIconSave'
+          onClick={this.save}
+        />
+        <button
+          title='Open'
+          className='demo-icon-yIconOpen'
+          onClick={this.open}
         />
       </div>
     )
